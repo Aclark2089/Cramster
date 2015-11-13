@@ -18,14 +18,26 @@ Clone the repository
 git clone git@github.com:Aclark2089/db_store_project.git
 ```
 
-Make sure that you set the python environment to the repository if you are at
-the ***REMOVED*** of the project you can do it with:
+You will need to make sure that your python has the correct modules installed
+with pip. I recommend using pyenv to manage which python installation you are
+running, but it is your choice. You will need to either setup a pyvenv, or
+simply use your system wide python installation.
 
 ```
-source bin/activate
+pyvenv 3.5.0 store_env <path-to-dir-where-you-want-to-install> #optional
+pip install -r requirements.txt
 ```
 
-Django should already be installed in the project
+Now that your python env is setup, you will either be able to clone the app/
+folder or have to setup your own by running
+
+```
+django-admin startapp app #if you made your own venv
+```
+
+and then moving the models and configuration files in manually. I am still
+trying to find a better way to clone a venv because the site-packages do not
+allow for cloning into other locations.
 
 ***
 
@@ -47,7 +59,8 @@ use the connection information
 
 ### Running the server
 
-Once you have the project repo cloned and have sorced the python activate file,
+Once you have the project repo cloned and make sure you have all of the
+requirements.txt file installed all you should have to do is
 all you have todo to run the server is use:
 
 ```
