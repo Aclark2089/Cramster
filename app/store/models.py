@@ -50,19 +50,19 @@ class Supplier(models.Model):
 
 # userOrder Model
 # Attributes: user, order
-class userOrder(models.Model):
+class UserOrder(models.Model):
     user = models.ForeignKey(User)
     order = models.ManyToManyField(Order)
 
 # orderContent Model
 # Attributes: order, product, quantity
-class orderContent(models.Model):
+class OrderContent(models.Model):
     order = models.ManyToManyField(Order)
     product = models.ManyToManyField(Product)
     quantity = models.IntegerField()
 
 # productSupplied Model
 # Attributes: product, supplier
-class productSupplied(models.Model):
+class ProductSupplier(models.Model):
     product = models.ManyToManyField(Product)
     supplier = models.ManyToManyField(Supplier)
