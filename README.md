@@ -75,6 +75,7 @@ run manually like so with `python manage.py runserver 0.0.0.10`
 ##TLDR;
 ```
 git clone git@github.com:Aclark2089/db_store_project.git
-cd db_store_project
-source bin/activate
+pyvenv 3.5.0 store <path-dir>
+pip install -r requirements.txt
+django-admin startproject app #if you setup your own env, then you will just need to move the files around manually
 ```
