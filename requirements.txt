@@ -1,0 +1,7 @@
+colorama==0.3.3
+Django==1.8.6
+django-extensions==1.5.9
+futures==3.0.3
+mysqlclient==1.3.7
+pigar==0.6.3
+six==1.10.0
