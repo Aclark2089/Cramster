@@ -22,7 +22,7 @@ class User(models.Model):
 class Order(models.Model):
     order_id = models.AutoField(primary_key=True)
     order_date = models.DateField()
-    user_id = models.ForeignKey(User)
+    user = models.ForeignKey(User, null=True)
     PAID_CHOICES = (
     ('Y', 'Yes'),
     ('N', 'No'),
@@ -34,7 +34,7 @@ class Order(models.Model):
 class Product(models.Model):
     product_id = models.AutoField(primary_key=True)
     product_name = models.DateField()
-    product_order = models.ForeignKey('ProductOrder')
+    product_order = models.ForeignKey('ProductOrder', null=True)
     price = models.IntegerField()
     stock_quantity = models.IntegerField()
     description = models.CharField(max_length=200)
