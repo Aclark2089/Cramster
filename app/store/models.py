@@ -22,6 +22,7 @@ class User(models.Model):
 class Order(models.Model):
     order_id = models.AutoField(primary_key=True)
     order_date = models.DateField()
+    user_id = models.ForeignKey(User)
     PAID_CHOICES = (
     ('Y', 'Yes'),
     ('N', 'No'),
@@ -33,6 +34,7 @@ class Order(models.Model):
 class Product(models.Model):
     product_id = models.AutoField(primary_key=True)
     product_name = models.DateField()
+    product_order = models.ForeignKey('ProductOrder')
     price = models.IntegerField()
     stock_quantity = models.IntegerField()
     description = models.CharField(max_length=200)
@@ -47,22 +49,11 @@ class Product(models.Model):
 class Supplier(models.Model):
     supplier_id = models.AutoField(primary_key=True)
     supplier_name = models.CharField(max_length=50)
-
-# userOrder Model
-# Attributes: user, order
-class UserOrder(models.Model):
-    user = models.ForeignKey(User)
-    order = models.ManyToManyField(Order)
-
-# orderContent Model
-# Attributes: order, product, quantity
-class OrderContent(models.Model):
-    order = models.ManyToManyField(Order)
     product = models.ManyToManyField(Product)
+
+# ProductOrder Model
+# Attributes: order, product, quantity
+class ProductOrder(models.Model):
+    order_id = models.OneToOneField(Order, primary_key=True)
     quantity = models.IntegerField()
 
-# productSupplied Model
-# Attributes: product, supplier
-class ProductSupplier(models.Model):
-    product = models.ManyToManyField(Product)
-    supplier = models.ManyToManyField(Supplier)
