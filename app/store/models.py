@@ -33,7 +33,7 @@ class Order(models.Model):
 # Attributes: productId, productName, price, stock quantity, description, active
 class Product(models.Model):
     product_id = models.AutoField(primary_key=True)
-    product_name = models.DateField()
+    product_name = models.CharField(max_length=100)
     product_order = models.ForeignKey('ProductOrder', null=True)
     price = models.IntegerField()
     stock_quantity = models.IntegerField()
@@ -54,6 +54,6 @@ class Supplier(models.Model):
 # ProductOrder Model
 # Attributes: order, product, quantity
 class ProductOrder(models.Model):
-    order_id = models.OneToOneField(Order, primary_key=True)
+    order = models.OneToOneField(Order, primary_key=True)
     quantity = models.IntegerField()
 
