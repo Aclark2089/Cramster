@@ -39,7 +39,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_extensions',
     'rest_framework',
-    'filters',
     'imagekit',
     'bootstrapform',
     'bootstrap3',
