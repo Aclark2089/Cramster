@@ -38,6 +38,12 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'rest_framework',
+    'filters',
+    'imagekit',
+    'bootstrapform',
+    'bootstrap3',
+    'django_mysql',
     'store',
 )
 

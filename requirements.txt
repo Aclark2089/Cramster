@@ -11,3 +11,4 @@ django-imagekit
 django-mysql
 django-forms-bootstrap
 django-model-utils
+django-bootstrap3
