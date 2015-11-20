@@ -9,7 +9,6 @@ django-filter
 django-phonenumber-field
 django-imagekit
 django-mysql
-django-forms-bootstrap
 django-model-utils
 django-bootstrap3
 Pillow
