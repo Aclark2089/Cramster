@@ -9,7 +9,7 @@ class User(models.Model):
     user_name = models.CharField(max_length=50)
     address = models.CharField(max_length=100)
     password = models.CharField(max_length=20)
-    email = models.CharField(max_length=50)
+    email = models.EmailField(max_length=150)
     STAFF_CHOICES = (
      ('Y', 'Yes'),
      ('N', 'No'),
@@ -21,7 +21,7 @@ class User(models.Model):
 # Attributes: orderId, orderDate, paid
 class Order(models.Model):
     order_id = models.AutoField(primary_key=True)
-    order_date = models.DateField()
+    order_date = models.DateField(auto_now_add=True)
     user = models.ForeignKey(User, null=True)
     PAID_CHOICES = (
     ('Y', 'Yes'),
@@ -36,7 +36,7 @@ class Product(models.Model):
     product_name = models.CharField(max_length=100)
     product_order = models.ForeignKey('ProductOrder', null=True)
     price = models.IntegerField()
-    stock_quantity = models.IntegerField()
+    stock_quantity = models.PositiveSmallIntegerField()
     description = models.CharField(max_length=200)
     ACTIVE_CHOICES = (
     ('Y', 'Yes'),
@@ -55,5 +55,4 @@ class Supplier(models.Model):
 # Attributes: order, product, quantity
 class ProductOrder(models.Model):
     order = models.OneToOneField(Order, primary_key=True)
-    quantity = models.IntegerField()
-
+    quantity = models.PositiveSmallIntegerField()

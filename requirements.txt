@@ -11,4 +11,5 @@ django-imagekit
 django-mysql
 django-model-utils
 django-bootstrap3
+pygments
 Pillow

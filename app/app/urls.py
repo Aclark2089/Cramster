@@ -25,6 +25,9 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
     # Store API
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api', include(StoreApiRouter.urls)),
-#    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+
+    # Store Views
+    url(r'^', include('store.urls', namespace='store')),
 ]
