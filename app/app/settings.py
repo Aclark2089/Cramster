@@ -40,7 +40,6 @@ INSTALLED_APPS = (
     'django_extensions',
     'rest_framework',
     'imagekit',
-    'django_forms_bootstrap',
     'bootstrap3',
     'django_mysql',
     'store',
