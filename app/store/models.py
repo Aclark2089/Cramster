@@ -16,7 +16,6 @@ class User(models.Model):
     )
     is_staff = models.CharField(max_length=1, choices=STAFF_CHOICES)
 
-
 # Order Model
 # Attributes: orderId, orderDate, paid
 class Order(models.Model):
@@ -34,7 +33,6 @@ class Order(models.Model):
 class Product(models.Model):
     product_id = models.AutoField(primary_key=True)
     product_name = models.CharField(max_length=100)
-    product_order = models.ForeignKey('ProductOrder', null=True)
     price = models.IntegerField()
     stock_quantity = models.PositiveSmallIntegerField()
     description = models.CharField(max_length=200)
@@ -55,4 +53,5 @@ class Supplier(models.Model):
 # Attributes: order, product, quantity
 class ProductOrder(models.Model):
     order = models.OneToOneField(Order, primary_key=True)
+    product_order = models.ForeignKey(Product, null=True)
     quantity = models.PositiveSmallIntegerField()
