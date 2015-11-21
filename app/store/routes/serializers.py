@@ -12,9 +12,11 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('product_name', 'product_order', 'price', 'stock_quantity', 'description', 'active')
 
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
+    user = serializers.ReadOnlyField(source='user.user_name')
     class Meta:
         model = Order
         fields = ('order_date', 'user', 'paid')
+
 
 class SupplierSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

@@ -2,7 +2,7 @@ from rest_framework import routers
 from store.routes.viewsets import *
 
 StoreApiRouter = routers.DefaultRouter()
-StoreApiRouter.register(r'users', UserDetail)
-StoreApiRouter.register(r'products', ProductDetail)
-StoreApiRouter.register(r'orders', OrderDetail)
-StoreApiRouter.register(r'suppliers', SupplierDetail)
+StoreApiRouter.register(r'users', UserViewSet)
+StoreApiRouter.register(r'products', ProductViewSet)
+StoreApiRouter.register(r'orders', OrderViewSet)
+StoreApiRouter.register(r'suppliers', SupplierViewSet)

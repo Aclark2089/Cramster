@@ -53,5 +53,5 @@ class Supplier(models.Model):
 # Attributes: order, product, quantity
 class ProductOrder(models.Model):
     order = models.OneToOneField(Order, primary_key=True)
-    product_order = models.ForeignKey(Product, null=True)
+    product = models.ForeignKey(Product, null=True)
     quantity = models.PositiveSmallIntegerField()
