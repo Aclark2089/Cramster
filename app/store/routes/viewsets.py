@@ -2,9 +2,12 @@ from store.routes.serializers import *
 from store.models import *
 from rest_framework import viewsets
 
-
 # Regular User
-class UserViewSet(viewsets.ModelViewSet):
+class UserList(viewsets.ReadOnlyModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+class UserDetail(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
