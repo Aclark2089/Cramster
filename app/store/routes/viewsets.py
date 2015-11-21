@@ -16,8 +16,13 @@ class ProductViewSet(viewsets.ModelViewSet):
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+
+
+# Product Orders
+class ProductOrderViewSet(viewsets.ModelViewSet):
+    queryset = ProductOrder.objects.all()
+    serializer_class = ProductOrderSerializer
+
 
 # Supplier
 class SupplierViewSet(viewsets.ModelViewSet):

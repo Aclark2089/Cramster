@@ -1,11 +1,10 @@
 from django.db import models
-
+from model_utils import *
 # Create your models here.
 
 # User Model
 # Attributes: userId, address, userName, password, email, is_staff
 class User(models.Model):
-    user_id = models.AutoField(primary_key=True)
     user_name = models.CharField(max_length=50)
     address = models.CharField(max_length=100)
     password = models.CharField(max_length=20)
@@ -19,9 +18,8 @@ class User(models.Model):
 # Order Model
 # Attributes: orderId, orderDate, paid
 class Order(models.Model):
-    order_id = models.AutoField(primary_key=True)
     order_date = models.DateField(auto_now_add=True)
-    user = models.ForeignKey(User, null=True)
+    user = models.ForeignKey(User, related_name='orders')
     PAID_CHOICES = (
     ('Y', 'Yes'),
     ('N', 'No'),
@@ -31,7 +29,6 @@ class Order(models.Model):
 # Product Model
 # Attributes: productId, productName, price, stock quantity, description, active
 class Product(models.Model):
-    product_id = models.AutoField(primary_key=True)
     product_name = models.CharField(max_length=100)
     price = models.IntegerField()
     stock_quantity = models.PositiveSmallIntegerField()
@@ -45,13 +42,12 @@ class Product(models.Model):
 # Supplier Model
 # Attributes: supplierId, supplierName
 class Supplier(models.Model):
-    supplier_id = models.AutoField(primary_key=True)
+    product = models.ManyToManyField(Product, related_name="supplies")
     supplier_name = models.CharField(max_length=50)
-    product = models.ManyToManyField(Product)
 
 # ProductOrder Model
 # Attributes: order, product, quantity
 class ProductOrder(models.Model):
-    order = models.OneToOneField(Order, primary_key=True)
-    product = models.ForeignKey(Product, null=True)
+    order = models.ForeignKey(Order, related_name='contains')
+    product = models.OneToOneField('Product', null=True, related_name='product_order_number')
     quantity = models.PositiveSmallIntegerField()

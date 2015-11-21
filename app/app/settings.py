@@ -85,7 +85,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ),
-
+    'PAGE_SIZE': 10,
 }
 
 WSGI_APPLICATION = 'app.wsgi.application'
