@@ -4,7 +4,7 @@ from django.http import HttpResponse, Http404
 # Create your views here.
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    return render(request, 'store/base.html')
 
-def form(request):
-    return HttpResponse("The form would normally be here")
+def login(request):
+    return render(request, 'store/login.html')
