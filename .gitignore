@@ -4,3 +4,4 @@ include/
 **/__pycache__/
 **/__init__.py
 
+**/bower_components/

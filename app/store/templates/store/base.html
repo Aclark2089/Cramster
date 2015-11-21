@@ -1,28 +1,16 @@
 {% load staticfiles %}
-{% load rest_framework %}
+{% load store_extras %}
 {% load i18n %}
 <!DOCTYPE html>
 <html>
 <head>
   {% block head %}
-
     {% block meta %}
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
       <meta name="robots" content="NONE,NOARCHIVE" />
     {% endblock %}
-
     <title>{% block title %}Bookstore{% endblock %}</title>
-
-    {% block style %}
-      {% block bootstrap_theme %}
-        <link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/bootstrap.min.css" %}"/>
-        <link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/bootstrap-tweaks.css" %}"/>
-      {% endblock %}
-
-      <link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/prettify.css" %}"/>
-      <link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/default.css" %}"/>
-    {% endblock %}
-
+    <link rel="stylesheet" type="text/css" href="{% static "bower_components/bootstrap/dist/css/bootstrap.min.css" %}"/>
   {% endblock %}
 </head>
 
@@ -52,7 +40,6 @@
         </div>
       </div>
     {% endblock %}
-    
 
     <div class="container">
       {% block breadcrumbs %}
@@ -243,22 +230,9 @@
   </div><!-- ./wrapper -->
 
   {% block script %}
-    <script src="{% static "rest_framework/js/jquery-1.11.3.min.js" %}"></script>
-    <script src="{% static "rest_framework/js/ajax-form.js" %}"></script>
-    <script src="{% static "rest_framework/js/csrf.js" %}"></script>
-    <script src="{% static "rest_framework/js/bootstrap.min.js" %}"></script>
-    <script src="{% static "rest_framework/js/prettify-min.js" %}"></script>
-    <script src="{% static "rest_framework/js/default.js" %}"></script>
-    <script>
-        $(document).ready(function() {
-            $('form').ajaxForm();
-        });
-    </script>
+    <script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
+    <script src="{% static "bower_components/bootstrap/dist/js/bootstrap.min.js" %}"></script>
   {% endblock %}
-
-  {% if filter_form %}
-  {{ filter_form }}
-  {% endif %}
 
 </body>
 {% endblock %}

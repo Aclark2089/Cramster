@@ -5,5 +5,5 @@ from .models import *
 
 urlpatterns = format_suffix_patterns([
     url(r'^$', views.index, name='index'),
-    url(r'^form/', views.form, name='form'),
+    url(r'^login', views.login, name='login')
 ])
