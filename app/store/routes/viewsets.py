@@ -17,13 +17,6 @@ class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
-
-# Product Orders
-class ProductOrderViewSet(viewsets.ModelViewSet):
-    queryset = ProductOrder.objects.all()
-    serializer_class = ProductOrderSerializer
-
-
 # Supplier
 class SupplierViewSet(viewsets.ModelViewSet):
     queryset = Supplier.objects.all()

@@ -20,17 +20,22 @@ class User(models.Model):
 class Order(models.Model):
     order_date = models.DateField(auto_now_add=True)
     user = models.ForeignKey(User, related_name='orders')
+    product = models.ForeignKey('Product', related_name='orders')
+    quantity = models.PositiveSmallIntegerField()
     PAID_CHOICES = (
     ('Y', 'Yes'),
     ('N', 'No'),
     )
     paid = models.CharField(max_length=1, choices=PAID_CHOICES)
+    class Meta:
+        ordering = ['-order_date']
 
 # Product Model
 # Attributes: productId, productName, price, stock quantity, description, active
 class Product(models.Model):
     product_name = models.CharField(max_length=100)
     price = models.IntegerField()
+    supplier = models.ManyToManyField('Supplier', related_name="products")
     stock_quantity = models.PositiveSmallIntegerField()
     description = models.CharField(max_length=200)
     ACTIVE_CHOICES = (
@@ -42,12 +47,4 @@ class Product(models.Model):
 # Supplier Model
 # Attributes: supplierId, supplierName
 class Supplier(models.Model):
-    product = models.ManyToManyField(Product, related_name="supplies")
     supplier_name = models.CharField(max_length=50)
-
-# ProductOrder Model
-# Attributes: order, product, quantity
-class ProductOrder(models.Model):
-    order = models.ForeignKey(Order, related_name='contains')
-    product = models.OneToOneField('Product', null=True, related_name='product_order_number')
-    quantity = models.PositiveSmallIntegerField()

@@ -13,53 +13,57 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Order',
             fields=[
-                ('order_id', models.AutoField(primary_key=True, serialize=False)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('order_date', models.DateField(auto_now_add=True)),
-                ('paid', models.CharField(choices=[('Y', 'Yes'), ('N', 'No')], max_length=1)),
+                ('quantity', models.PositiveSmallIntegerField()),
+                ('paid', models.CharField(max_length=1, choices=[('Y', 'Yes'), ('N', 'No')])),
             ],
+            options={
+                'ordering': ['-order_date'],
+            },
         ),
         migrations.CreateModel(
             name='Product',
             fields=[
-                ('product_id', models.AutoField(primary_key=True, serialize=False)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('product_name', models.CharField(max_length=100)),
                 ('price', models.IntegerField()),
                 ('stock_quantity', models.PositiveSmallIntegerField()),
                 ('description', models.CharField(max_length=200)),
-                ('active', models.CharField(choices=[('Y', 'Yes'), ('N', 'No')], max_length=1)),
-            ],
-        ),
-        migrations.CreateModel(
-            name='ProductOrder',
-            fields=[
-                ('product_order_id', models.AutoField(primary_key=True, serialize=False)),
-                ('quantity', models.PositiveSmallIntegerField()),
-                ('order', models.ForeignKey(related_name='contains', to='store.Order', null=True)),
-                ('product', models.OneToOneField(related_name='product_order_number', to='store.Product', null=True)),
+                ('active', models.CharField(max_length=1, choices=[('Y', 'Yes'), ('N', 'No')])),
             ],
         ),
         migrations.CreateModel(
             name='Supplier',
             fields=[
-                ('supplier_id', models.AutoField(primary_key=True, serialize=False)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('supplier_name', models.CharField(max_length=50)),
-                ('product', models.ManyToManyField(related_name='supplies', to='store.Product')),
             ],
         ),
         migrations.CreateModel(
             name='User',
             fields=[
-                ('user_id', models.AutoField(primary_key=True, serialize=False)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('user_name', models.CharField(max_length=50)),
                 ('address', models.CharField(max_length=100)),
                 (***REMOVED***, models.CharField(max_length=20)),
                 ('email', models.EmailField(max_length=150)),
-                ('is_staff', models.CharField(choices=[('Y', 'Yes'), ('N', 'No')], max_length=1)),
+                ('is_staff', models.CharField(max_length=1, choices=[('Y', 'Yes'), ('N', 'No')])),
             ],
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='supplier',
+            field=models.ManyToManyField(related_name='products', to='store.Supplier'),
+        ),
+        migrations.AddField(
+            model_name='order',
+            name='product',
+            field=models.ForeignKey(to='store.Product', related_name='orders'),
         ),
         migrations.AddField(
             model_name='order',
             name='user',
-            field=models.ForeignKey(related_name='orders', to='store.User', null=True),
+            field=models.ForeignKey(to='store.User', related_name='orders'),
         ),
     ]
