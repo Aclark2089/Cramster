@@ -8,7 +8,7 @@ def index(request):
     if request.user.is_authenticated():
         username = (request.user)
     context = {
-        "template_title": title,
+        "store_title": title,
         "template_username": username,
     }
     return render(request, 'store/base.html', context)
