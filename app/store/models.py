@@ -1,4 +1,5 @@
 from django.db import models
+from django_extensions.db.fields import CreationDateTimeField
 from model_utils import *
 # Create your models here.
 
@@ -14,11 +15,13 @@ class User(models.Model):
      ('N', 'No'),
     )
     is_staff = models.CharField(max_length=1, choices=STAFF_CHOICES)
+    class Meta:
+        ordering = ['user_name']
 
 # Order Model
 # Attributes: orderId, orderDate, paid
 class Order(models.Model):
-    order_date = models.DateField(auto_now_add=True)
+    order_date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, related_name='orders')
     product = models.ForeignKey('Product', related_name='orders')
     quantity = models.PositiveSmallIntegerField()
@@ -48,3 +51,5 @@ class Product(models.Model):
 # Attributes: supplierId, supplierName
 class Supplier(models.Model):
     supplier_name = models.CharField(max_length=50)
+    class Meta:
+        ordering = ['supplier_name']
