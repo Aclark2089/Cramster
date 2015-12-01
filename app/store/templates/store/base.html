@@ -62,9 +62,12 @@
 
       <div class="col-md-3">
         
+        {% if empty_search %}
+          <p style="color: red;">Empty Search</p>
+        {% endif %}
         <form action="/search/" method="get">
-          <input> type="text" name="q">
-          <input> type="submit" value="Search">
+          <input type="text" name="q">
+          <input type="submit" value="Search">
         </form>
 
         <p class="lead">Shop Name</p>

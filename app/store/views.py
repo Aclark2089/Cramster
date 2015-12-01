@@ -29,5 +29,4 @@ def search(request):
 		return render(request, 'store/search_results.html', result)
 
 	else
-		 message = 'You submitted an empty form.'
-	return HttpResponse(message)
+		return render(request, 'store/base.html', {'empty_search': True})
