@@ -1,0 +1,13 @@
+<p>You searched for: <b>{{ query }}</strong></p>
+
+{% if products %}
+	<p>Found {{ products|length }} result{{ products|pluralize }}.</p>
+	<ul>
+		{% for product in products %}
+		<li>{{ product.product_name }}</li>
+		{% endfor %}
+	</ul>
+{% else %}
+	<p>No books matched your search criteria.</p>
+{% endif %}
+
