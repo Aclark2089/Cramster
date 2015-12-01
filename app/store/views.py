@@ -5,6 +5,7 @@ from django.http import HttpResponse, Http404
 
 def index(request):
     title = "Cramster"
+    username = ""
     if request.user.is_authenticated():
         username = (request.user)
     context = {
