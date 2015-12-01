@@ -1,6 +1,7 @@
 from store.routes.serializers import *
 from store.models import *
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, generics, filters
+from rest_framework.renderers import TemplateHTMLRenderer
 
 # Regular User
 class UserViewSet(viewsets.ModelViewSet):
@@ -21,3 +22,13 @@ class OrderViewSet(viewsets.ModelViewSet):
 class SupplierViewSet(viewsets.ModelViewSet):
     queryset = Supplier.objects.all()
     serializer_class = SupplierSerializer
+
+
+class ProductSearchList(generics.ListAPIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'store/search_results.html'
+    queryset = Product.objects.all()
+    serializer = ProductSerializer
+    filter_backends = (filters.SearchFilter, filters.OrderingFilter)
+    search_fields = ('product_name', 'description')
+    ordering_fields = ('price')

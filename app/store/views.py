@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render, render_to_response
 from django.template import RequestContext
 from django.http import HttpResponse, Http404
+from django.db.models import Q
 from .models import *
 # Create your views here.
 
@@ -21,13 +22,13 @@ def login(request):
 def search(request):
 	if 'q' in request.GET and request.GET['q']:
 		q = request.GET['q']
-		products = Product.objects.filter(product_name__icontains=q or description__icontains=q)
+		products = Product.objects.all().filter(Q(product_name__icontains=q) | Q(description__icontains=q))
 		result = {
 			'products': products,
 			'query': q,
 		}
 		return render(request, 'store/search_results.html', result)
 
-	else
+	else:
 		 message = 'You submitted an empty form.'
 	return HttpResponse(message)
