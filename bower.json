@@ -1,0 +1,33 @@
+{
+  "name": "Bookstore",
+  "homepage": "https://github.com/aclark2089/Bookstore",
+  "authors": [
+    "Alex Clark <aclark2089@gmail.com>"
+  ],
+  "description": "Django Project for Databases using Python with Django & Mysql",
+  "main": "app/static/",
+  "moduleType": [],
+  "keywords": [
+    "jquery",
+    "bootstrap",
+    "client",
+    "server",
+    "browser",
+    "model",
+    "view",
+    "urls"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6",
+    "jquery": "~2.1.4"
+  }
+}
