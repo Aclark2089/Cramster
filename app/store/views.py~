@@ -29,6 +29,11 @@ def search(request):
 		}
 		return render(request, 'store/search_results.html', result)
 
-	else:
+<<<<<<< HEAD
+	else
 		return render(request, 'store/base.html', {'empty_search': True})
-
+=======
+	else:
+		 message = 'You submitted an empty form.'
+	return HttpResponse(message)
+>>>>>>> 31b40a8562054e7e4cc35b71b3b5baddaf502459
