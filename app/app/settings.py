@@ -62,7 +62,6 @@ INSTALLED_APPS = (
     'django_mysql',
     'imagekit',
     'bootstrap3',
-    'crispy_forms',
     'sorl.thumbnail',
 )
 
