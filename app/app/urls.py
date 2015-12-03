@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.views.generic.base import RedirectView
 from rest_framework import routers, serializers, viewsets
 from store.routes.config import StoreApiRouter
 
@@ -28,6 +29,12 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api', include(StoreApiRouter.urls)),
 
+    # Djoser Authentication
+    url(r'^auth/', include('djoser.urls')),
+
     # Store Views
     url(r'^', include('store.urls', namespace='store')),
+
+    # Redirection
+    url(r'^.*$', RedirectView.as_view(url=r'/', permanent=False), name='index'),
 ]

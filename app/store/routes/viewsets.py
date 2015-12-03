@@ -23,7 +23,7 @@ class SupplierViewSet(viewsets.ModelViewSet):
     queryset = Supplier.objects.all()
     serializer_class = SupplierSerializer
 
-
+# SearchList
 class ProductSearchList(generics.ListAPIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'store/search_results.html'
