@@ -50,14 +50,16 @@ def auth_view(request):
 		return HttpResponseRedirect('/accounts/invalid/')
 
 def loggedin(request):
-	return render_to_response('store/loggedin.html', {'full_name': request.user.username})
+	return render_to_response('store/base.html', {'full_name': request.user.username})
 
 def invalid_login(request):
-	return render_to_response('store/invalid_login.html')
+	c = {}
+	c.update(csrf(request))
+	return render_to_response('store/login.html', {'invalid': True})
 
 def logout(request):
 	auth.logout(request)
-	return render_to_response('store/logout.html')
+	return HttpResponseRedirect('store/base.html')
 
 def register_user(request):
 	if request.method == 'POST':
