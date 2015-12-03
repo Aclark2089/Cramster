@@ -43,10 +43,14 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <a href="#">Sign Up</a>
+            <a href="/accounts/register/">Sign Up</a>
           </li>
           <li>
-            <button class="btn navbar-btn btn-info">Login</button>
+            {% if full_name %}
+              <a href="/accounts/logout/" class="btn btn-default">Logout</a>
+            {% else %}
+              <a href="/accounts/login/" class="btn btn-default">Login</a>
+            {% endif %}
           </li>
         </ul>
       </div>
@@ -56,12 +60,16 @@
   </nav>
 
   <!-- Page Content -->
+  {% block content %}
   <div class="container">
 
     <div class="row">
 
       <div class="col-md-3">
-        
+        {% if full_name %}
+          <p>Welcome, {{ full_name }}</p>
+        {% endif %}
+
         {% if empty_search %}
           <p style="color: red;">Empty Search</p>
         {% endif %}
@@ -231,6 +239,7 @@
     </div>
 
   </div>
+  {% endblock %}
   <!-- /.container -->
 
   <div class="container">

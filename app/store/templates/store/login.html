@@ -1,4 +1,7 @@
-{% if form.errors %}
+{% extends "base.html" %}
+
+{% block content %}
+{% if invalid %}
 	<p class="error">Invalid username or password</p>
 {% endif %}
 
@@ -10,3 +13,4 @@
 
 	<input type="submit" value="login" />
 </form>
+{% endblock %}
