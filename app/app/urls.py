@@ -36,5 +36,5 @@ urlpatterns = [
     url(r'^', include('store.urls', namespace='store')),
 
     # Redirection
-    url(r'^.*$', RedirectView.as_view(url=r'/', permanent=False), name='index'),
+    #url(r'^.*$', RedirectView.as_view(url=r'/', permanent=False), name='index'),
 ]
