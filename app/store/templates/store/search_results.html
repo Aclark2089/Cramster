@@ -1,26 +1,65 @@
 {% extends "store/base.html" %}
 
-{% block content %}
+{% block catalog %}
 
-<p>You searched for: <b>{{ query }}</b></p>
+<div class="row">
+	<div class = "col-md-12">
+		<h4>You searched for: <mark><strong>{{ query }}</strong></mark></h4>
+	</div>
+</div>
+
+
 
 {% if products %}
-	<p>Found {{ products|length }} result{{ products|pluralize }}.</p>
-	<ul>
-		{% for product in products %}
-			<li>{{ product.product_name }}</li>
-			<li>${{ product.price }}</li>
-			<li>Quantity{{ product.stock_quantity }}</li>
-			<li>Description: <p>{{ product.description }}</p></li>
-			{% if product.active %}
-			<li> This product is active </li> 
-			{% else %}
-			<li> This product is not active </li> 
-			{% endif %}
-		{% endfor %}
-	</ul>
+	<div class="row">
+		<div class="col-md-12">
+			<p class="lead">Found <mark>{{ products|length }}</mark> result{{ products|pluralize }}.</p>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="panel panel-default">
+			<table class="table">
+				<tr>
+					<th>
+						Title:
+					</th>
+					<th>
+						Price (USD):
+					</th>
+					<th>
+						In Stock:
+					</th>
+					<th>
+						Description:
+					</th>
+					<th>
+						Active:
+					</th>
+				</tr>
+				{% for product in products %}
+				<tr>
+					<td>{{ product.product_name }}</td>
+					<td>${{ product.price }}</td>
+					<td>Quantity{{ product.stock_quantity }}</td>
+					<td>Description: <p>{{ product.description }}</p></td>
+					{% if product.active %}
+					<td> This product is active </td>
+					{% else %}
+					<td> This product is not active </td>
+				</tr>
+
+						{% endif %}
+				</ul>
+			</table>
+		</div>
+	</div>
+	{% endfor %}
 {% else %}
-	<p>No books matched your search criteria.</p>
+	<div class="row">
+		<div class="col-md-12">
+			<p class="lead">No books matched your search criteria.</p>
+		</div>
+	</div>
 {% endif %}
 
 {% endblock %}
