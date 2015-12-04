@@ -5,11 +5,11 @@ from django.core.context_processors import csrf
 from django.db.models import Q
 from django.contrib import auth
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from .models import *
 from .forms import *
 # Create your views here.
 
-# Index Views
 def index(request):
     return render(request, 'store/base.html')
 
@@ -25,19 +25,6 @@ def search(request):
 
 	else:
 		return render(request, 'store/base.html', {'empty_search': True})
-
-def product_catalog(request):
-    products = Product.objects.all()
-    return render(request, 'store/product_catalog.html', { "products": products })
-
-def supplier_list(request):
-    suppliers = Supplier.objects.all()
-    return render(request, 'store/supplier_list.html', { "suppliers": suppliers })
-
-
-# Order Views
-def order_form(request):
-    return render(request, 'store/order_form.html')
 
 # Login Views
 def login(request):
@@ -67,24 +54,27 @@ def logout(request):
 
 def register_user(request):
 	if request.method == 'POST':
-		form = UserCreationForm(request.POST)
-
+		form = UserForm(request.POST)
+		address = StoreUserForm(request.POST)
 		username = request.POST.get('username', '')
-		password = request.POST.get(***REMOVED***, '')
-		login_info = User(username=username, password=password)
 
-		user = UserForm(request.POST, instance=login_info)
-
-		if form.is_valid() * user.is_valid():
+		if form.is_valid() * address.is_valid():
 			form.save()
+
+			u = User.objects.get(username=username)
+
+			temp = StoreUser(auth_user=u)
+
+			user = StoreUserForm(request.POST, instance=temp)
+
 			user.save()
 			return HttpResponseRedirect('/accounts/register_success/')
 
 	args = {}
 	args.update(csrf(request))
 
-	args['form'] = UserCreationForm()
-	args['user_info'] = UserForm()
+	args['form'] = UserForm()
+	args['user_info'] = StoreUserForm()
 
 	return render(request, 'store/register.html', args)
 
@@ -119,7 +109,37 @@ def delete_user(request, user_id):
 	user_to_delete.delete()
 	return render(request, 'store/base.html')
 
+def product_catalog(request):
+    products = Product.objects.all()
+    return render(request, 'store/product_catalog.html', { "products": products })
 
+def edit_product(request, product_id="1"):
+	try:
+		product_id = int(product_id)
+	except ValueError:
+		raise Http404()
+
+	if request.method == 'POST':
+
+		current_product = Product.objects.get(pk=product_id)
+		form = ProductForm(request.POST, instance=current_product)
+
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect('/products/')
+
+	product = get_object_or_404(Product, pk=product_id)
+
+	args = {}
+	args.update(csrf(request))
+
+	args['form'] = ProductForm(instance=product)
+	args['product'] = product
+	return render('store/product_edit.html', args)
+
+def supplier_list(request):
+    suppliers = Supplier.objects.all()
+    return render(request, 'store/supplier_list.html', { "suppliers": suppliers })
 
 '''
 def staff(request):

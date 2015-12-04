@@ -1,12 +1,18 @@
 from store.routes.serializers import *
 from store.models import *
+from django.contrib.auth.models import User
 from rest_framework import viewsets, permissions, generics, filters
 from rest_framework.renderers import TemplateHTMLRenderer
 
-# Regular User
-class UserViewSet(viewsets.ModelViewSet):
+# Auth User
+class AuthUserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = AuthUserSerializer
+
+# Regular User
+class StoreUserViewSet(viewsets.ModelViewSet):
+    queryset = StoreUser.objects.all()
+    serializer_class = StoreUserSerializer
 
 # Product
 class ProductViewSet(viewsets.ModelViewSet):
