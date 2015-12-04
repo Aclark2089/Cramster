@@ -141,6 +141,10 @@ def supplier_list(request):
     suppliers = Supplier.objects.all()
     return render(request, 'store/supplier_list.html', { "suppliers": suppliers })
 
+def user_list(request):
+	users = User.objects.all()
+	return render(request, 'store/user_list.html', { "users": users })
+
 '''
 def staff(request):
 	return render(request, 'store/staff.html')
