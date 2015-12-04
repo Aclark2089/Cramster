@@ -92,7 +92,7 @@ def settings(request):
 
 	args['form'] = UserForm
 
-	return render_to_response('store/settings.html', args)
+	return render(request, 'store/settings.html', args)
 
 def delete_user(request, user_id):
 	try:
