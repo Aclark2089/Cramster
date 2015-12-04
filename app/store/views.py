@@ -5,6 +5,7 @@ from django.core.context_processors import csrf
 from django.db.models import Q
 from django.contrib import auth
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from .models import *
 from .forms import *
 # Create your views here.
@@ -54,18 +55,26 @@ def logout(request):
 def register_user(request):
 	if request.method == 'POST':
 		form = UserForm(request.POST)
-		#user = UserProfileForm(request.POST)
+		address = StoreUserForm(request.POST)
+		username = request.POST.get('username', '')
 
-		if form.is_valid() * user.is_valid():
+		if form.is_valid() * address.is_valid():
 			form.save()
-			#user.save()
+
+			u = User.objects.get(username=username)
+
+			temp = StoreUser(auth_user=u)
+
+			user = StoreUserForm(request.POST, instance=temp)
+
+			user.save()
 			return HttpResponseRedirect('/accounts/register_success/')
 
 	args = {}
 	args.update(csrf(request))
 
 	args['form'] = UserForm()
-	#args['user_info'] = UserProfileForm()
+	args['user_info'] = StoreUserForm()
 
 	return render(request, 'store/register.html', args)
 
