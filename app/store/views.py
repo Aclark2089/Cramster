@@ -58,7 +58,7 @@ def register_user(request):
 		address = StoreUserForm(request.POST)
 		username = request.POST.get('username', '')
 
-		if form.is_valid() * user.is_valid():
+		if form.is_valid() * address.is_valid():
 			form.save()
 
 			u = User.objects.get(username=username)

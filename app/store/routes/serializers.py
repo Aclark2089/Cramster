@@ -1,12 +1,18 @@
 from rest_framework import serializers
+from django.contrib.auth.models import User
 from store.models import *
 
-class UserSerializer(serializers.ModelSerializer):
-    orders = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    password = serializers.CharField(style={'input_type': ***REMOVED***})
+class AuthUserSerializer(serializers.ModelSerializer):
+    storeuser = serializers.PrimaryKeyRelatedField(read_only=True)
     class Meta:
         model = User
-        fields = ('username', 'email', ***REMOVED***, 'orders', 'is_staff')
+        fields = ('__all__')
+
+class StoreUserSerializer(serializers.ModelSerializer):
+    orders = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    class Meta:
+        model = StoreUser
+        fields = ('__all__')
 
 class ProductSerializer(serializers.ModelSerializer):
     orders = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
