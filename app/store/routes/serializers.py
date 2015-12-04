@@ -6,7 +6,7 @@ class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(style={'input_type': ***REMOVED***})
     class Meta:
         model = User
-        fields = ('user_name', 'email', ***REMOVED***, 'orders', 'is_staff')
+        fields = ('username', 'email', ***REMOVED***, 'orders', 'is_staff')
 
 class ProductSerializer(serializers.ModelSerializer):
     orders = serializers.PrimaryKeyRelatedField(many=True, read_only=True)

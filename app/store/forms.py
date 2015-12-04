@@ -6,5 +6,5 @@ class UserForm(ModelForm):
 		model = User
 		fields = ['address', 'email', 'is_staff']
 		labels = {
-			'is_staff': _('Check this if you are a staff member')
+			'is_staff': ('Check this if you are a staff member'),
 		}
