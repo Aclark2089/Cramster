@@ -42,13 +42,18 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
+          {% if user.is_active %}
           <li>
-            {% if user.is_active %}
               <p class="navbar-text">Welcome, {{ user.username }}</p>
-            {% else %}
-              <a href="/accounts/register/">Sign Up</a>
-            {% endif %}
+
+          <li>
+              <a href="/accounts/settings/">Settings</a>
           </li>
+          {% else %}
+          <li>
+            <a href="/accounts/register/">Sign Up</a>
+          </li>
+            {% endif %}
           <li>
             {% if user.is_active %}
               <a href="/accounts/logout/" class="btn btn-default">Logout</a>

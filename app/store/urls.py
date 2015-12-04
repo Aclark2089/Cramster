@@ -14,4 +14,6 @@ urlpatterns = format_suffix_patterns([
     url(r'^accounts/invalid/', views.invalid_login, name='invalid_login'),
     url(r'^accounts/register/', views.register_user, name='register_user'),
     url(r'^accounts/register_success/', views.register_success, name='register_success'),
+
+    url(r'^accounts/settings/', views.settings, name='settings'),
 ])
