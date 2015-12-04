@@ -5,6 +5,7 @@ from django.core.context_processors import csrf
 from django.db.models import Q
 from django.contrib import auth
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from .models import *
 from .forms import *
 # Create your views here.
@@ -53,11 +54,19 @@ def logout(request):
 
 def register_user(request):
 	if request.method == 'POST':
-		form = UserCreationForm(request.POST)
-		user = UserProfileForm(request.POST)
+		form = UserForm(request.POST)
+		address = StoreUserForm(request.POST)
+		username = request.POST.get('username', '')
 
-		if form.is_valid() * user.is_valid():
+		if form.is_valid() * address.is_valid():
 			form.save()
+
+			u = User.objects.get(username=username)
+
+			temp = StoreUser(auth_user=u)
+
+			user = StoreUserForm(request.POST, instance=temp)
+
 			user.save()
 			return HttpResponseRedirect('/accounts/register_success/')
 
@@ -65,7 +74,7 @@ def register_user(request):
 	args.update(csrf(request))
 
 	args['form'] = UserForm()
-	args['user_info'] = UserProfileForm()
+	args['user_info'] = StoreUserForm()
 
 	return render(request, 'store/register.html', args)
 
@@ -104,7 +113,7 @@ def product_catalog(request):
     products = Product.objects.all()
     return render(request, 'store/product_catalog.html', { "products": products })
 
-def edit_product(request, product_id):
+def edit_product(request, product_id="1"):
 	try:
 		product_id = int(product_id)
 	except ValueError:
@@ -131,6 +140,10 @@ def edit_product(request, product_id):
 def supplier_list(request):
     suppliers = Supplier.objects.all()
     return render(request, 'store/supplier_list.html', { "suppliers": suppliers })
+
+def user_list(request):
+	users = User.objects.all()
+	return render(request, 'store/user_list.html', { "users": users })
 
 '''
 def staff(request):
