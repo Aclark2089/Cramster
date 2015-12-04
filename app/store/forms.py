@@ -15,7 +15,9 @@ class UserForm(UserCreationForm):
 
 	def save(self, commit=True):
 		user = super(UserCreationForm, self).save(commit=False)
+		user.username = self.cleaned_data['username']
 		user.email = self.cleaned_data['email']
+		user.is_staff = self.cleaned_data['is_staff']
 		user.set_password(self.cleaned_data["password1"])
 
 		if commit:
