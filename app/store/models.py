@@ -6,7 +6,7 @@ from model_utils import *
 
 # User Model
 # Attributes: userId, address, userName, password, email, is_staff
-class UserInfo(models.Model):
+class StoreUser(models.Model):
     auth_user = models.OneToOneField(User, on_delete=models.CASCADE)
     address = models.CharField(max_length=100)
 
@@ -14,7 +14,7 @@ class UserInfo(models.Model):
 # Attributes: orderId, orderDate, paid
 class Order(models.Model):
     order_date = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, related_name='orders')
+    user = models.ForeignKey(StoreUser, related_name='orders')
     product = models.ForeignKey('Product', related_name='orders')
     quantity = models.PositiveSmallIntegerField()
     paid = models.BooleanField()

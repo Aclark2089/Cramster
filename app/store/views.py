@@ -55,7 +55,7 @@ def logout(request):
 def register_user(request):
 	if request.method == 'POST':
 		form = UserForm(request.POST)
-		address = UserProfileForm(request.POST)
+		address = StoreUserForm(request.POST)
 		username = request.POST.get('username', '')
 
 		if form.is_valid() * user.is_valid():
@@ -63,9 +63,9 @@ def register_user(request):
 
 			u = User.objects.get(username=username)
 
-			temp = UserInfo(auth_user=u)
+			temp = StoreUser(auth_user=u)
 
-			user = UserInfoForm(request.POST, instance=temp)
+			user = StoreUserForm(request.POST, instance=temp)
 
 			user.save()
 			return HttpResponseRedirect('/accounts/register_success/')
@@ -74,7 +74,7 @@ def register_user(request):
 	args.update(csrf(request))
 
 	args['form'] = UserForm()
-	args['user_info'] = UserInfoForm()
+	args['user_info'] = StoreUserForm()
 
 	return render(request, 'store/register.html', args)
 
