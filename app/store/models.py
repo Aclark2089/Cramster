@@ -7,7 +7,7 @@ from model_utils import *
 # User Model
 # Attributes: userId, address, userName, password, email, is_staff
 class UserInfo(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    auth_user = models.OneToOneField(User, on_delete=models.CASCADE)
     address = models.CharField(max_length=100)
 
 # Order Model
