@@ -10,15 +10,7 @@ from .forms import *
 # Create your views here.
 
 def index(request):
-    title = "Cramster"
-    username = ""
-    if request.user.is_authenticated():
-        username = (request.user)
-    context = {
-        "store_title": title,
-        "template_username": username,
-    }
-    return render(request, 'store/base.html', context)
+    return render(request, 'store/base.html')
 
 def search(request):
 	if 'q' in request.GET and request.GET['q']:
@@ -37,7 +29,7 @@ def search(request):
 def login(request):
 	c = {}
 	c.update(csrf(request))
-	return render_to_response('store/login.html', c)
+	return render(request, 'store/login.html', c)
 
 def auth_view(request):
 	username = request.POST.get('username', '')
@@ -46,17 +38,14 @@ def auth_view(request):
 
 	if user is not None:
 		auth.login(request, user)
-		return HttpResponseRedirect('/accounts/loggedin/')
+		return HttpResponseRedirect('/')
 	else:
 		return HttpResponseRedirect('/accounts/invalid/')
-
-def loggedin(request):
-	return render_to_response('store/base.html', {'full_name': request.user.username})
 
 def invalid_login(request):
 	c = {}
 	c.update(csrf(request))
-	return render_to_response('store/login.html', {'invalid': True})
+	return render(request, 'store/login.html', {'invalid': True})
 
 def logout(request):
 	auth.logout(request)
@@ -83,10 +72,10 @@ def register_user(request):
 	args['form'] = UserCreationForm()
 	args['user_info'] = UserForm()
 
-	return render_to_response('store/register.html', args)
+	return render(request, 'store/register.html', args)
 
 def register_success(request):
-	return render_to_response('store/register_success.html')
+	return render(request, 'store/register_success.html')
 
 def settings(request):
 	if request.method == 'POST':
