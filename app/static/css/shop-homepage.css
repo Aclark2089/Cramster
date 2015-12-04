@@ -53,6 +53,11 @@ body {
     color: #333;
 }
 
+.results-table th {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
 #main-wrapper {
 	min-height: 100%;
 	height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
