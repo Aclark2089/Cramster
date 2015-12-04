@@ -16,7 +16,7 @@ class User(models.Model):
     )
     is_staff = models.CharField(max_length=1, choices=STAFF_CHOICES)
     class Meta:
-        ordering = ['user_name']
+        ordering = ['username']
 
 # Order Model
 # Attributes: orderId, orderDate, paid
