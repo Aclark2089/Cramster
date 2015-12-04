@@ -6,7 +6,6 @@
 
 </form>
 
-<form action="/accounts/{% url delete_user user_id=user.pk %}/" method="post">
+<form action="/accounts/{% url 'delete_user' user_id=user.pk %}/" method="post">
 	<input type="submit" value="Edit" />
 </form>
-
