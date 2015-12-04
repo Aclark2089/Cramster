@@ -6,7 +6,7 @@ from model_utils import *
 # User Model
 # Attributes: userId, address, userName, password, email, is_staff
 class User(models.Model):
-    user_name = models.CharField(max_length=50)
+    username = models.CharField(max_length=50)
     address = models.CharField(max_length=100)
     password = models.CharField(max_length=20)
     email = models.EmailField(max_length=150)
