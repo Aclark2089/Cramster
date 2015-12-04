@@ -10,7 +10,8 @@
     </div>
   </div>
 
-  <form action="/products/edit/{% url 'edit_product' product_id=product.pk %}/" method="post">{% csrf_token %}
+  <!--{% url 'edit_product' product_id=product.pk as the_url %}-->
+  <form action="/products/edit/{{ product.pk }}/" method="post">{% csrf_token %}
   {{ form }}
 
   <input type="submit" value="Edit" />
