@@ -1,6 +1,7 @@
 <b>Register</b></br>
 <form action="/accounts/register/" method="post">{% csrf_token %}
 {{ form }}
+{{ user_info }}
 
 <input type="submit" value="Register" />
 

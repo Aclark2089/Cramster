@@ -10,11 +10,7 @@ class User(models.Model):
     address = models.CharField(max_length=100)
     password = models.CharField(max_length=20)
     email = models.EmailField(max_length=150)
-    STAFF_CHOICES = (
-     ('Y', 'Yes'),
-     ('N', 'No'),
-    )
-    is_staff = models.CharField(max_length=1, choices=STAFF_CHOICES)
+    is_staff = models.BooleanField()
     class Meta:
         ordering = ['username']
 
@@ -25,11 +21,7 @@ class Order(models.Model):
     user = models.ForeignKey(User, related_name='orders')
     product = models.ForeignKey('Product', related_name='orders')
     quantity = models.PositiveSmallIntegerField()
-    PAID_CHOICES = (
-    ('Y', 'Yes'),
-    ('N', 'No'),
-    )
-    paid = models.CharField(max_length=1, choices=PAID_CHOICES)
+    paid = models.BooleanField()
     class Meta:
         ordering = ['-order_date']
 
@@ -41,11 +33,7 @@ class Product(models.Model):
     supplier = models.ManyToManyField('Supplier', related_name="products")
     stock_quantity = models.PositiveSmallIntegerField()
     description = models.CharField(max_length=200)
-    ACTIVE_CHOICES = (
-    ('Y', 'Yes'),
-    ('N', 'No'),
-    )
-    active = models.CharField(max_length=1, choices=ACTIVE_CHOICES)
+    active = models.BooleanField()
 
 # Supplier Model
 # Attributes: supplierId, supplierName
