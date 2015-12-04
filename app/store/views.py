@@ -6,6 +6,7 @@ from django.db.models import Q
 from django.contrib import auth
 from django.contrib.auth.forms import UserCreationForm
 from .models import *
+from .forms import *
 # Create your views here.
 
 def index(request):
@@ -64,8 +65,10 @@ def logout(request):
 def register_user(request):
 	if request.method == 'POST':
 		form = UserCreationForm(request.POST)
+		user = UserForm(request.POST)
 		if form.is_valid():
 			form.save()
+			user.save()
 			return HttpResponseRedirect('/accounts/register_success/')
 
 	args = {}
