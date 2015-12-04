@@ -1,0 +1,29 @@
+{% extends "store/base.html" %}
+
+{% block content %}
+<div class="row">
+	<div class="col-xs-12">
+		<a href="/accounts/register/">Create New User</a>
+		<h2>User List<h2>
+		{% for user in user_list %}
+		<ul>
+			<li>Username: {{ user.username }}</li>
+			<li>Password: {{ user.password }}</li>
+			<li>Address: {{ user.address }}</li>
+			<li>Email: {{ user.email }}</li>
+			<li>Staff? {{ user.is_staff }}</li>
+			<li>
+				<form action="/staff/users/edit/{% url edit_user user_id=user.pk %}" method="post">
+					<input type="submit" value="Edit" />
+				</form>
+			</li>
+			<li>
+				<form action="/accounts/register/" method="post">
+					<input type="submit" value="Delete" />
+				</form>
+			</li>
+		</ul>
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}
