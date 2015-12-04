@@ -20,13 +20,7 @@ class UserForm(UserCreationForm):
 
 		return user
 
-class UserProfileForm(ModelForm):
-	class Meta:
-		model = UserProfile
-		fields = {'address'}
-
 class ProductForm(ModelForm):
 	class Meta:
 		model = Product
 		fields = {'product_name', 'price', 'supplier', 'stock_quantity', 'description', 'active'}
-	
