@@ -16,4 +16,14 @@ urlpatterns = format_suffix_patterns([
     url(r'^accounts/register_success/', views.register_success, name='register_success'),
 
     url(r'^accounts/settings/', views.settings, name='settings'),
+    url(r'^accounts/delete/(?P<user_id>[0-9]+)/$', views.delete_user, name='delete_user'),
+
+'''
+    # Staff Settings
+    url(r'^staff/', views.staff, name='staff'),
+    url(r'^staff/users/', views.staff_users, name='staff_users'),
+    url(r'^staff/users/edit/(?P<user_id>[0-9]+)/$', views.edit_user, name='edit_user'),
+    url(r'^staff/products/', views.staff_products, name='staff_products'),
+    url(r'^staff/orders/', views.staff_orders, name='staff_orders'),
+'''
 ])

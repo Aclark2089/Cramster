@@ -93,3 +93,38 @@ def settings(request):
 	args['form'] = UserForm
 
 	return render_to_response('store/settings.html', args)
+
+def delete_user(request, user_id):
+	try:
+		user_id = int(user_id)
+	except ValueError:
+		raise Http404()
+
+	auth.logout(request)
+	user_to_delete = User.objects.get(pk=user_id)
+	user_to_delete.delete()
+	return render(request, 'store/base.html')
+
+'''
+def staff(request):
+	return render(request, 'store/staff.html')
+
+def staff_users(request):
+	return render(request, 'store/staff_users.html')
+
+def edit_user(request, user_id):
+	try:
+		user_id = int(user_id)
+	except ValueError:
+		raise Http404()
+
+	selected_user = User.objects.get(pk=user_id)
+	selected_user.
+
+def staff_products(request):
+	return render(request, 'store/staff_products.html')
+
+def staff_orders(request):
+	return render(request, 'store/staff_orders.html')
+
+'''
