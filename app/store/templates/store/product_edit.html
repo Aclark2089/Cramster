@@ -1,0 +1,19 @@
+{% extends "store/base.html" %}
+
+
+{% block catalog %}
+
+  <div class="row">
+
+    <div class="col-xs-12">
+      <h1 class="text-center">Edit Product</h1>
+    </div>
+  </div>
+
+  <form action="/products/edit/{% url 'edit_product' product_id=product.pk %}/" method="post">{% csrf_token %}
+  {{ form }}
+
+  <input type="submit" value="Edit" />
+
+  </form>
+{% endblock %}

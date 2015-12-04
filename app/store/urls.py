@@ -7,13 +7,9 @@ urlpatterns = format_suffix_patterns([
     url(r'^$', views.index, name='index'),
     url(r'^search/$', views.search, name='search'),
 
-    # Catalog Urls
     url(r'^products/', views.product_catalog, name='product_catalog'),
+    url(r'^products/edit/(?P<product_id>[0-9]+)/$', views.edit_product, name='edit_product'),
     url(r'^suppliers/', views.supplier_list, name='supplier_list'),
-
-    #Orders
-    url(r'^orders/', views.order_form, name='order_form'),
-
 
     # Login urls
     url(r'^accounts/login/', views.login, name='login'),
@@ -29,7 +25,7 @@ urlpatterns = format_suffix_patterns([
     # Staff Settings
     #url(r'^staff/', views.staff, name='staff'),
     #url(r'^staff/users/', views.staff_users, name='staff_users'),
-    #url(r'^staff/users/edit/(?P<user_id>[0-9]+)/$', views.edit_user, name='edit_user'),
+    #url(r'^staff/users/edit/(?P<user_id>[0-9]+)/$', views.edit_user, name='edit_user'),git
     #url(r'^staff/products/', views.staff_products, name='staff_products'),
     #url(r'^staff/orders/', views.staff_orders, name='staff_orders'),
 ])
