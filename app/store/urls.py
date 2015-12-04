@@ -7,6 +7,9 @@ urlpatterns = format_suffix_patterns([
     url(r'^$', views.index, name='index'),
     url(r'^search/$', views.search, name='search'),
 
+    url(r'^products/', views.product_catalog, name='product_catalog'),
+    url(r'^suppliers/', views.supplier_list, name='supplier_list'),
+
     # Login urls
     url(r'^accounts/login/', views.login, name='login'),
     url(r'^accounts/auth/', views.auth_view, name='auth_view'),

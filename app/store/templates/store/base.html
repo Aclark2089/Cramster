@@ -88,12 +88,13 @@
 
         <p class="lead">Shop Name</p>
         <div class="list-group">
-          <a href="#" class="list-group-item">Products</a>
-          <a href="#" class="list-group-item">Suppliers</a>
+          <a href="/products/" class="list-group-item">Products</a>
+          <a href="/suppliers/" class="list-group-item">Suppliers</a>
         </div>
       </div>
 
       <div class="col-md-9">
+        {% block catalog %}
 
         <div class="row carousel-holder">
 
@@ -240,7 +241,7 @@
 
 
         </div>
-
+          {% endblock %}
       </div>
 
     </div>

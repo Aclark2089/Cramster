@@ -105,6 +105,14 @@ def delete_user(request, user_id):
 	user_to_delete.delete()
 	return render(request, 'store/base.html')
 
+def product_catalog(request):
+    products = Product.objects.all()
+    return render(request, 'store/product_catalog.html', { "products": products })
+
+def supplier_list(request):
+    suppliers = Supplier.objects.all()
+    return render(request, 'store/supplier_list.html', { "suppliers": suppliers })
+
 '''
 def staff(request):
 	return render(request, 'store/staff.html')
