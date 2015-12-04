@@ -5,7 +5,9 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import *
 
 class UserForm(UserCreationForm):
+	username = forms.CharField()
 	email = forms.EmailField(required=True)
+	is_staff = form.BooleanField()
 
 	class Meta:
 		model = User
