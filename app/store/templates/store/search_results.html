@@ -18,7 +18,7 @@
 	</div>
 	<div class="col-md-12">
 		<div class="panel panel-default">
-			<table class="table">
+			<table class="table results-table">
 				<tr>
 					<th>
 						Title:
@@ -40,14 +40,13 @@
 				<tr>
 					<td>{{ product.product_name }}</td>
 					<td>${{ product.price }}</td>
-					<td>Quantity{{ product.stock_quantity }}</td>
-					<td>Description: <p>{{ product.description }}</p></td>
+					<td>Count: {{ product.stock_quantity }}</td>
+					<td><p>{{ product.description }}</p></td>
 					{% if product.active %}
-					<td> This product is active </td>
+					<td><span class="glyphicon glyphicon-ok"></span> </td>
 					{% else %}
-					<td> This product is not active </td>
+					<td><span class="glyphicon glyphicon-remove"></span> </td>
 				</tr>
-
 						{% endif %}
 				</ul>
 			</table>
