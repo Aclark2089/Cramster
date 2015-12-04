@@ -33,4 +33,4 @@ class StoreUserForm(ModelForm):
 class ProductForm(ModelForm):
 	class Meta:
 		model = Product
-		fields = {'product_name', 'price', 'supplier', 'stock_quantity', 'description', 'active'}
+		fields = {'price', 'stock_quantity', 'description', 'active'}

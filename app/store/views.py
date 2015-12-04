@@ -135,7 +135,7 @@ def edit_product(request, product_id="1"):
 
 	args['form'] = ProductForm(instance=product)
 	args['product'] = product
-	return render('store/product_edit.html', args)
+	return render(request, 'store/product_edit.html', args)
 
 def supplier_list(request):
     suppliers = Supplier.objects.all()
