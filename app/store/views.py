@@ -53,19 +53,19 @@ def logout(request):
 
 def register_user(request):
 	if request.method == 'POST':
-		form = UserCreationForm(request.POST)
-		user = UserProfileForm(request.POST)
+		form = UserForm(request.POST)
+		#user = UserProfileForm(request.POST)
 
 		if form.is_valid() * user.is_valid():
 			form.save()
-			user.save()
+			#user.save()
 			return HttpResponseRedirect('/accounts/register_success/')
 
 	args = {}
 	args.update(csrf(request))
 
 	args['form'] = UserForm()
-	args['user_info'] = UserProfileForm()
+	#args['user_info'] = UserProfileForm()
 
 	return render(request, 'store/register.html', args)
 
@@ -104,7 +104,7 @@ def product_catalog(request):
     products = Product.objects.all()
     return render(request, 'store/product_catalog.html', { "products": products })
 
-def edit_product(request, product_id):
+def edit_product(request, product_id="1"):
 	try:
 		product_id = int(product_id)
 	except ValueError:
