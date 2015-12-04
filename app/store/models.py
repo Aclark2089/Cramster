@@ -1,18 +1,14 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django_extensions.db.fields import CreationDateTimeField
 from model_utils import *
 # Create your models here.
 
 # User Model
 # Attributes: userId, address, userName, password, email, is_staff
-class User(models.Model):
-    username = models.CharField(max_length=50)
+class UserInfo(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     address = models.CharField(max_length=100)
-    password = models.CharField(max_length=20)
-    email = models.EmailField(max_length=150)
-    is_staff = models.BooleanField()
-    class Meta:
-        ordering = ['username']
 
 # Order Model
 # Attributes: orderId, orderDate, paid
