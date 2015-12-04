@@ -13,8 +13,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Order',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
-                ('order_date', models.DateField(auto_now_add=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('order_date', models.DateTimeField(auto_now_add=True)),
                 ('quantity', models.PositiveSmallIntegerField()),
                 ('paid', models.CharField(max_length=1, choices=[('Y', 'Yes'), ('N', 'No')])),
             ],
@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Product',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
                 ('product_name', models.CharField(max_length=100)),
                 ('price', models.IntegerField()),
                 ('stock_quantity', models.PositiveSmallIntegerField()),
@@ -36,20 +36,26 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Supplier',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
                 ('supplier_name', models.CharField(max_length=50)),
             ],
+            options={
+                'ordering': ['supplier_name'],
+            },
         ),
         migrations.CreateModel(
             name='User',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
-                ('user_name', models.CharField(max_length=50)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('username', models.CharField(max_length=50)),
                 ('address', models.CharField(max_length=100)),
                 (***REMOVED***, models.CharField(max_length=20)),
                 ('email', models.EmailField(max_length=150)),
                 ('is_staff', models.CharField(max_length=1, choices=[('Y', 'Yes'), ('N', 'No')])),
             ],
+            options={
+                'ordering': ['username'],
+            },
         ),
         migrations.AddField(
             model_name='product',
@@ -59,11 +65,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='order',
             name='product',
-            field=models.ForeignKey(to='store.Product', related_name='orders'),
+            field=models.ForeignKey(related_name='orders', to='store.Product'),
         ),
         migrations.AddField(
             model_name='order',
             name='user',
-            field=models.ForeignKey(to='store.User', related_name='orders'),
+            field=models.ForeignKey(related_name='orders', to='store.User'),
         ),
     ]
