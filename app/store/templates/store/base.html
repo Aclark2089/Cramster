@@ -43,17 +43,14 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
           <li>
-            {% if full_name %}
-              <p class="navbar-text">Welcome, {{ full_name }}</p>
+            {% if user.is_active %}
+              <p class="navbar-text">Welcome, {{ user.username }}</p>
+            {% else %}
+              <a href="/accounts/register/">Sign Up</a>
             {% endif %}
           </li>
-          {% if full_name == null %}
           <li>
-              <a href="/accounts/register/">Sign Up</a>
-          </li>
-          {% endif %}
-          <li>
-            {% if full_name %}
+            {% if user.is_active %}
               <a href="/accounts/logout/" class="btn btn-default">Logout</a>
             {% else %}
               <a href="/accounts/login/" class="btn btn-default">Login</a>
