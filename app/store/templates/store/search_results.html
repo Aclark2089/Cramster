@@ -1,13 +1,26 @@
-<p>You searched for: <b>{{ query }}</strong></p>
+{% extends "store/base.html" %}
+
+{% block content %}
+
+<p>You searched for: <b>{{ query }}</b></p>
 
 {% if products %}
 	<p>Found {{ products|length }} result{{ products|pluralize }}.</p>
 	<ul>
 		{% for product in products %}
-		<li>{{ product.product_name }}</li>
+			<li>{{ product.product_name }}</li>
+			<li>${{ product.price }}</li>
+			<li>Quantity{{ product.stock_quantity }}</li>
+			<li>Description: <p>{{ product.description }}</p></li>
+			{% if product.active %}
+			<li> This product is active </li> 
+			{% else %}
+			<li> This product is not active </li> 
+			{% endif %}
 		{% endfor %}
 	</ul>
 {% else %}
 	<p>No books matched your search criteria.</p>
 {% endif %}
 
+{% endblock %}
