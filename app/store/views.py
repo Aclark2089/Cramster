@@ -87,3 +87,20 @@ def register_user(request):
 
 def register_success(request):
 	return render_to_response('store/register_success.html')
+
+def settings(request):
+	if request.method == 'POST':
+
+		current_user = User.objects.get(username=request.user.username)
+		form = UserForm(request.POST, instance=current_user)
+
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect('/accounts/settings/')
+
+	args = {}
+	args.update(csrf(request))
+
+	args['form'] = UserForm
+
+	return render_to_response('store/settings.html', args)

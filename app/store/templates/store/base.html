@@ -51,6 +51,10 @@
           <li>
               <a href="/accounts/register/">Sign Up</a>
           </li>
+          {% else %}
+          <li>
+              <a href="/accounts/settings/">Settings</a>
+          </li>
           {% endif %}
           <li>
             {% if full_name %}
