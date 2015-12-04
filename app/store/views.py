@@ -9,6 +9,7 @@ from .models import *
 from .forms import *
 # Create your views here.
 
+# Index Views
 def index(request):
     return render(request, 'store/base.html')
 
@@ -24,6 +25,19 @@ def search(request):
 
 	else:
 		return render(request, 'store/base.html', {'empty_search': True})
+
+def product_catalog(request):
+    products = Product.objects.all()
+    return render(request, 'store/product_catalog.html', { "products": products })
+
+def supplier_list(request):
+    suppliers = Supplier.objects.all()
+    return render(request, 'store/supplier_list.html', { "suppliers": suppliers })
+
+
+# Order Views
+def order_form(request):
+    return render(request, 'store/order_form.html')
 
 # Login Views
 def login(request):
@@ -105,13 +119,7 @@ def delete_user(request, user_id):
 	user_to_delete.delete()
 	return render(request, 'store/base.html')
 
-def product_catalog(request):
-    products = Product.objects.all()
-    return render(request, 'store/product_catalog.html', { "products": products })
 
-def supplier_list(request):
-    suppliers = Supplier.objects.all()
-    return render(request, 'store/supplier_list.html', { "suppliers": suppliers })
 
 '''
 def staff(request):
