@@ -37,14 +37,21 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Welcome To {{ store_title }} Bookstore</a>
+        <a class="navbar-brand" href="/">Welcome To {{ store_title }} Bookstore</a>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <a href="/accounts/register/">Sign Up</a>
+            {% if full_name %}
+              <p class="navbar-text">Welcome, {{ full_name }}</p>
+            {% endif %}
           </li>
+          {% if full_name == null %}
+          <li>
+              <a href="/accounts/register/">Sign Up</a>
+          </li>
+          {% endif %}
           <li>
             {% if full_name %}
               <a href="/accounts/logout/" class="btn btn-default">Logout</a>
@@ -67,14 +74,11 @@
     <div class="row">
 
       <div class="col-md-3">
-        {% if full_name %}
-          <p>Welcome, {{ full_name }}</p>
-        {% endif %}
 
         {% if empty_search %}
           <p style="color: red;">Empty Search</p>
         {% endif %}
-        
+
         <form action="/search/" method="get">
           <input type="text" name="q">
           <input type="submit" value="Search">
