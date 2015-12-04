@@ -65,6 +65,10 @@ body {
 	margin: 0 auto -155px; /* the bottom margin is the negative value of the footer's height */
 }
 
+#login {
+  margin-top: 10% !important;
+}
+
 #footer, .push {
     height: 155px;
 }
