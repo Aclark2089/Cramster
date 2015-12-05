@@ -1,8 +1,46 @@
-<b>Register</b></br>
-<form action="/accounts/register/" method="post">{% csrf_token %}
-{{ form }}
-{{ user_info }}
+{% extends "store/base.html" %}
 
-<input type="submit" value="Register" />
+{% block content %}
 
-</form>
+<div class="row center-divider">
+  <div class="col-xs-4 col-xs-offset-4">
+    <h4 class="text-center text-primary">Sign Up For An Account</h4>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <form action="/accounts/register/" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="registerUsername">Username:</label>
+            <span class="pull-right">{{ form.username }}</span>
+          </div>
+          <div class="form-group">
+            <label for="registerEmail">Email:</label>
+            <span class="pull-right">{{ form.email }}</span>
+          </div>
+          <div class="clearfix"></div>
+          <div class="form-group">
+            <label for="registerPassword1">Password:</label>
+            <span class="pull-right">{{ form.password1 }}</span>
+          </div>
+          <div class="form-group">
+            <label for="registerPassword2">Confirm Password:</label>
+            <span class="pull-right">{{ form.password2 }}</span>
+          </div>
+          <div class="form-group">
+            <label for="registerAddress">Address:</label>
+            <span class="pull-right">{{ user_info.address }}</span>
+          </div>
+          <div class="checkbox text-center">
+            <label>
+                {{ form.is_staff }}
+              Are You A Member Of Our Staff?
+            </label>
+          </div>
+          <button class="btn btn-primary btn-block" type="submit" value="Register">Register</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
