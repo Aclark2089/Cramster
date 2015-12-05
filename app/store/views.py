@@ -68,7 +68,7 @@ def register_user(request):
 			user = StoreUserForm(request.POST, instance=temp)
 
 			user.save()
-			return HttpResponseRedirect('/accounts/register_success/')
+			return render(request, 'store/login.html')
 
 	args = {}
 	args.update(csrf(request))
@@ -77,9 +77,6 @@ def register_user(request):
 	args['user_info'] = StoreUserForm()
 
 	return render(request, 'store/register.html', args)
-
-def register_success(request):
-	return render(request, 'store/register_success.html')
 
 def settings(request):
 	current_user = User.objects.get(username=request.user.username)
@@ -142,7 +139,7 @@ def add_product(request):
 	args.update(csrf(request))
 
 	args['form'] = NewProductForm()
-	return render(request, 'store/product_add.html', args)	
+	return render(request, 'store/product_add.html', args)
 
 def edit_product(request, product_id="1"):
 	try:
