@@ -8,7 +8,11 @@
 	<div class="col-xs-3 col-xs-offset-3">
 		<div class="panel panel-default">
 			<div class="panel-heading">
+				{% if error %}
+				Error: Invalid Form Submission
+				{% else %}
 				Current Settings
+				{% endif %}
 			</div>
 			<div class="panel-body">
 				<div class="form-group">
