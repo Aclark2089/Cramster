@@ -7,11 +7,11 @@
         Checkout
       </h1>
 
-      The price of your order is 
+      The price of your order is {{ price }} dollars.
 		<form action="/order/more/{{ order_id }}/" method="post">{% csrf_token %}
- 		 {{ form }}
+ 		 <input type="text" 
  		
-		<input type="submit" value="Make Order" />
+		<input type="submit" value="Pay" />
 		</form>
       <h1 class="text-center">
         Checkout
