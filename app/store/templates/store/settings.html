@@ -1,10 +1,11 @@
 <b>Settings</b></br>
 <form action="/accounts/settings/" method="post">{% csrf_token %}
-{{ form }}
+{{ form1 }}
+{{ form2 }}
 
-<input type="submit" value="Register" />
+<input type="submit" value="Edit" />
 </form>
 
-<form action="/accounts/delete/{{ user.id }}/" method="post">{% csrf_token %}
+<form action="/accounts/delete/{{ current_user.id }}/" method="post">{% csrf_token %}
 	<input type="submit" value="Delete" />
 </form>
