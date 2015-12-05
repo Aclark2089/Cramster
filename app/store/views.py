@@ -239,7 +239,8 @@ def orders_more(request, order_id="1"):
 			return render(request, 'store/orders_more.html', args)
 
 	return render(request, 'store/order_form.html', args)
-
+	
+'''
 def orders_checkout(request, order_id="1"):
 	try:
 		order_id = int(order_id)
@@ -251,9 +252,10 @@ def orders_checkout(request, order_id="1"):
 	price = 0
 
 	for product in current_order.products:
-		
+
 
 	return render(request, 'store/orders_checkout.html', { 'order': current_order })
+'''
 
 def supplier_list(request):
     suppliers = Supplier.objects.all()

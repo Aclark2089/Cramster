@@ -20,10 +20,9 @@ urlpatterns = format_suffix_patterns([
     # Orders URLs
     url(r'^orders/$', views.orders, name='orders'),
     url(r'^orders/more/([0-9]+)/$', views.orders_more, name='orders_more'),
-    url(r'^orders/checkout/([0-9]+)/$', views.orders_checkout, name='orders_checkout'),
+    #url(r'^orders/checkout/([0-9]+)/$', views.orders_checkout, name='orders_checkout'),
     url(r'^orders/list/$', views.order_list, name='orders_list'),
     url(r'^orders/edit/([0-9]+)/$', views.order_edit, name='order_edit'),
-    url(r'^orders/pay/$', views.orders_pay, name='orders_pay'),
 
     # Suppliers URLs
     url(r'^suppliers/$', views.supplier_list, name='supplier_list'),
