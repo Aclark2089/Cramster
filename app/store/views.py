@@ -13,7 +13,8 @@ from .forms import *
 def index(request):
     return render(request, 'store/base.html')
 
-def search(request):
+
+def search(request, filter=None):
 	if 'q' in request.GET and request.GET['q']:
 		q = request.GET['q']
 		products = Product.objects.all().filter(Q(product_name__icontains=q) | Q(description__icontains=q))
@@ -122,8 +123,13 @@ def delete_user(request, user_id):
 
 	return render(request, 'store/base.html')
 
-def product_catalog(request):
-    products = Product.objects.all()
+def product_catalog(request, filter=None):
+    if filter == 1:
+        products = Product.objects.all().order_by('price')
+    elif filter == 2:
+        products = Product.objects.all().order_by('product_name')
+    else:
+        products = Product.objects.all()
     return render(request, 'store/product_catalog.html', { "products": products })
 
 def add_product(request):
