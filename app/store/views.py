@@ -189,19 +189,18 @@ def orders(request):
 		order = Order(user=request.user.storeuser, paid=False)
 		product_order = ProductOrder(order=order)
 
-		form = ProductForm(request.POST, instance=order)
+		form = ProductForm(request.POST, instance=product_order)
 
 		if form.is_valid():
 			form.save()
 			order.save()
-			return HttpResponseRedirect('/orders/pay/')
-
+			return render(request, 'store/orders_more.html', {'order_id':order.pk, 'form':OrderForm()})
 
 	args = {}
 	args.update(csrf(request))
 
 	args['form'] = OrderForm()
-	return render(request, 'store/order_form.html')
+	return render(request, 'store/order_form.html', args)
 
 def orders_pay(request):
 	return render(request, 'store/orders_pay.html')
