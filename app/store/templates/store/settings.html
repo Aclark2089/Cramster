@@ -3,9 +3,8 @@
 {{ form }}
 
 <input type="submit" value="Register" />
-
 </form>
 
-<form action="/accounts/{% url 'delete_user' user_id=user.pk %}/" method="post">
-	<input type="submit" value="Edit" />
+<form action="/accounts/delete/{{ user.id }}/" method="post">{% csrf_token %}
+	<input type="submit" value="Delete" />
 </form>
