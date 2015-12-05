@@ -11,9 +11,8 @@
     </div>
     {% for product in products %}
       {{ product.product_name }}
-      <!--{% url 'edit_product' product_id=product.pk as the_url %} -->
       {% if user.is_staff %}
-      <a href="/products/edit/{{ product.pk }}/">Edit</a>
+      <a class="btn btn-primary" href="/products/edit/{{ product.pk }}/">Edit</a>
       {% endif %}
     {% endfor %}
   {% else %}

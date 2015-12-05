@@ -14,6 +14,7 @@ urlpatterns = format_suffix_patterns([
     url(r'^orders/pay/$', views.orders_pay, name='orders_pay'),
     url(r'^suppliers/$', views.supplier_list, name='supplier_list'),
     url(r'^accounts/$', views.user_list, name='user_list'),
+    url(r'^accounts/edit/([0-9]+)/$', views.user_edit, name='user_edit'),
 
     # Login urls
     url(r'^accounts/login/$', views.login, name='login'),

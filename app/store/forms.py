@@ -37,5 +37,5 @@ class ProductForm(ModelForm):
 
 class OrderForm(ModelForm):
 	class Meta:
-		model = OrderForm
+		model = Order
 		fields = {'product', 'quantity'}
