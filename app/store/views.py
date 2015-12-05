@@ -82,9 +82,10 @@ def register_success(request):
 	return render(request, 'store/register_success.html')
 
 def settings(request):
+	current_user = User.objects.get(username=request.user.username)
+	
 	if request.method == 'POST':
 
-		current_user = User.objects.get(username=request.user.username)
 		form1 = UserForm(request.POST, instance=current_user)
 		form2 = StoreUserForm(request.POST, instance=current_user.storeuser)
 
@@ -92,8 +93,6 @@ def settings(request):
 			form1.save()
 			form2.save()
 			return HttpResponseRedirect('/accounts/settings/')
-
-	current_user = get_object_or_404(User, id=request.user.id)
 
 	args = {}
 	args.update(csrf(request))
