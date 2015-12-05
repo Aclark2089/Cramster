@@ -29,12 +29,7 @@ class SupplierViewSet(viewsets.ModelViewSet):
     queryset = Supplier.objects.all()
     serializer_class = SupplierSerializer
 
-# SearchList
-class ProductSearchList(generics.ListAPIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'store/search_results.html'
-    queryset = Product.objects.all()
-    serializer = ProductSerializer
-    filter_backends = (filters.SearchFilter, filters.OrderingFilter)
-    search_fields = ('product_name', 'description')
-    ordering_fields = ('price')
+# Product Order
+class ProductOrderViewSet(viewsets.ModelViewSet):
+    queryset = ProductOrder.objects.all()
+    serializer_class = ProductOrderSerializer
