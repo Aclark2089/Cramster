@@ -1,0 +1,25 @@
+{% extends "store/base.html" %}
+
+{% block catalog %}
+  <div class="row">
+    <div class="col-xs-12">
+      <h1 class="text-center">
+        Checkout
+      </h1>
+
+      The price of your order is {{ price }} dollars.
+		<form action="/order/more/{{ order_id }}/" method="post">{% csrf_token %}
+ 		 <input type="text" 
+ 		
+		<input type="submit" value="Pay" />
+		</form>
+      <h1 class="text-center">
+        Checkout
+      </h1>
+    <form action="/order/checkout/{{ order_id }}" method="post">{% csrf_token %}
+    
+    <input type="submit" value="Pay" />
+    </form>
+    </div>
+  </div>
+{% endblock %}

@@ -21,9 +21,10 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = ('product_name', 'price', 'supplier', 'orders', 'stock_quantity', 'description', 'active')
 
 class OrderSerializer(serializers.ModelSerializer):
+    products = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     class Meta:
         model = Order
-        fields = ('order_date', 'user', 'product', 'quantity', 'paid')
+        fields = ('order_date', 'user', 'products', 'paid')
 
 
 class SupplierSerializer(serializers.ModelSerializer):
@@ -31,3 +32,8 @@ class SupplierSerializer(serializers.ModelSerializer):
     class Meta:
         model = Supplier
         fields = ('supplier_name', 'products')
+
+class ProductOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductOrder
+        fields = ('product', 'order', 'quantity')

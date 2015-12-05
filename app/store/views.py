@@ -193,25 +193,69 @@ def delete_product(request, product_id):
 
 def orders(request):
 
+	args = {}
+	args.update(csrf(request))
+
+	args['form'] = OrderForm()
+
 	if request.method == 'POST':
 
-		order = Order(user=user.storeuser, paid=False)
-		form = ProductForm(request.POST, instance=order)
+		order = Order(user=request.user.storeuser, paid=False)
+		product_order = ProductOrder(order=order)
+
+		form = ProductForm(request.POST, instance=product_order)
 
 		if form.is_valid():
 			form.save()
-			return HttpResponseRedirect('/orders/pay/')
+			order.save()
+			args['order_id'] = order.pk
+			return render(request, 'store/orders_more.html', args)
 
+	return render(request, 'store/order_form.html', args)
+
+def orders_more(request, order_id="1"):
+	try:
+		order_id = int(order_id)
+	except ValueError:
+		raise Http404()
 
 	args = {}
 	args.update(csrf(request))
 
 	args['form'] = OrderForm()
-	return render(request, 'store/product_edit.html', args)
-	return render(request, 'store/orders.html')
+	args['order_id'] = order_id
 
-def orders_pay(request):
-	return render(request, 'store/orders_pay.html')
+	current_order = Order.objects.get(pk=order_id)
+
+	if request.method == 'POST':
+
+		product_order = ProductOrder(order=current_order)
+
+		form = ProductForm(request.POST, instance=product_order)
+
+		if form.is_valid():
+			form.save()
+			current_order.save()
+			return render(request, 'store/orders_more.html', args)
+
+	return render(request, 'store/order_form.html', args)
+	
+
+def orders_checkout(request, order_id="1"):
+	try:
+		order_id = int(order_id)
+	except ValueError:
+		raise Http404()
+
+	current_order = Order.objects.get(pk=order_id)
+
+	price = 0
+
+	for product in current_order.products:
+		price = price + ( product.quantity * product.product.price )
+
+
+	return render(request, 'store/orders_checkout.html', { 'order': current_order, 'price': price })
 
 def supplier_list(request):
     suppliers = Supplier.objects.all()
@@ -220,6 +264,34 @@ def supplier_list(request):
 def user_list(request):
 	users = User.objects.all()
 	return render(request, 'store/user_list.html', { "users": users })
+
+def order_list(request):
+	orders = Order.objects.all()
+	return render(request, 'store/order_list.html', { "orders": orders })
+
+def order_edit(request, order_id):
+	try:
+		order_id = int(order_id)
+	except ValueError:
+		raise Http404()
+
+	if request.method == 'POST':
+
+		current_order = Order.objects.get(pk=order_id)
+		form = OrderForm(request.POST, instance=current_order)
+
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect('/orders/')
+
+	order = get_object_or_404(Order, pk=order_id)
+
+	args = {}
+	args.update(csrf(request))
+
+	args['form'] = OrderForm(instance=order)
+	args['order'] = order
+	return render(request, 'store/order_edit.html', args)
 
 def user_edit(request, user_id):
     try:

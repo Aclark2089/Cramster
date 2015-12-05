@@ -15,9 +15,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Order',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('order_date', models.DateTimeField(auto_now_add=True)),
-                ('quantity', models.PositiveSmallIntegerField()),
                 ('paid', models.BooleanField()),
             ],
             options={
@@ -27,7 +26,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Product',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('product_name', models.CharField(max_length=100)),
                 ('price', models.IntegerField()),
                 ('stock_quantity', models.PositiveSmallIntegerField()),
@@ -39,9 +38,18 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
+            name='ProductOrder',
+            fields=[
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('quantity', models.PositiveSmallIntegerField()),
+                ('order', models.ForeignKey(related_name='products', to='store.Order')),
+                ('product', models.ForeignKey(related_name='orders', to='store.Product')),
+            ],
+        ),
+        migrations.CreateModel(
             name='StoreUser',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('address', models.CharField(max_length=100)),
                 ('auth_user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
             ],
@@ -49,7 +57,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Supplier',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('supplier_name', models.CharField(max_length=50)),
             ],
             options={
@@ -59,12 +67,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='product',
             name='supplier',
-            field=models.ManyToManyField(related_name='products', to='store.Supplier'),
-        ),
-        migrations.AddField(
-            model_name='order',
-            name='product',
-            field=models.ForeignKey(related_name='orders', to='store.Product'),
+            field=models.ManyToManyField(to='store.Supplier', related_name='products'),
         ),
         migrations.AddField(
             model_name='order',
