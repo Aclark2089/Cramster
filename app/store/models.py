@@ -15,8 +15,6 @@ class StoreUser(models.Model):
 class Order(models.Model):
     order_date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(StoreUser, related_name='orders')
-    product = models.ManyToManyField('Product', related_name='orders')
-    quantity = models.PositiveSmallIntegerField()
     paid = models.BooleanField()
     class Meta:
         ordering = ['-order_date']
@@ -26,7 +24,7 @@ class Order(models.Model):
 class Product(models.Model):
     product_name = models.CharField(max_length=100)
     price = models.IntegerField()
-    supplier = models.ManyToManyField('Supplier', related_name="products")
+    supplier = models.ManyToManyField('Supplier', related_name='products')
     stock_quantity = models.PositiveSmallIntegerField()
     description = models.CharField(max_length=200)
     active = models.BooleanField()
@@ -39,3 +37,8 @@ class Supplier(models.Model):
     supplier_name = models.CharField(max_length=50)
     class Meta:
         ordering = ['supplier_name']
+
+class ProductOrder(models.Model)
+    product = models.ForeignKey('Product', related_name='productorder')
+    order = models.ForeignKey('Order', related_name='productorder')
+    quantity = models.PositiveSmallIntegerField()
