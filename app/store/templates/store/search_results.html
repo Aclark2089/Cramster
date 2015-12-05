@@ -35,6 +35,11 @@
 					<th>
 						Active:
 					</th>
+					{% if user.is_active %}
+					<th>
+						Edit:
+					</th>
+					{% endif %}
 				</tr>
 				{% for product in products %}
 				<tr>
@@ -46,13 +51,17 @@
 					<td><span class="glyphicon glyphicon-ok"></span> </td>
 					{% else %}
 					<td><span class="glyphicon glyphicon-remove"></span> </td>
+					{% endif %}
+					{% if user.is_active %}
+					<td>
+						<a class="btn btn-primary" href="/products/edit/{{ product.pk }}/">Edit</a>
+					</td>
+					{% endif %}
 				</tr>
-						{% endif %}
-				</ul>
+				{% endfor %}
 			</table>
 		</div>
 	</div>
-	{% endfor %}
 {% else %}
 	<div class="row">
 		<div class="col-md-12">
