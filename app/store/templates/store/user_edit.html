@@ -11,7 +11,8 @@
   </div>
 
   <form action="/accounts/edit/{{ user_id }}/" method="post">{% csrf_token %}
-  {{ form }}
+  {{ form1 }}
+  {{ form2 }}
 
   <input type="submit" value="Edit" />
 
@@ -19,7 +20,7 @@
 
   </br>
 
-  <form action="/products/delete/{{ user_id }}/" method="post">{% csrf_token %}
+  <form action="/accounts/delete/{{ user_id }}/" method="post">{% csrf_token %}
 
   <input type="submit" value="Delete" />
 
