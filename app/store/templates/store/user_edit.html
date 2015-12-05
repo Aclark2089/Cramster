@@ -6,11 +6,11 @@
   <div class="row">
 
     <div class="col-xs-12">
-      <h1 class="text-center">Edit Product</h1>
+      <h1 class="text-center">Edit User</h1>
     </div>
   </div>
 
-  <form action="/products/edit/{{ product.pk }}/" method="post">{% csrf_token %}
+  <form action="/accounts/edit/{{ user_id }}/" method="post">{% csrf_token %}
   {{ form }}
 
   <input type="submit" value="Edit" />
@@ -19,7 +19,7 @@
 
   </br>
 
-  <form action="/products/delete/{{ product.pk }}/" method="post">{% csrf_token %}
+  <form action="/products/delete/{{ user_id }}/" method="post">{% csrf_token %}
 
   <input type="submit" value="Delete" />
 

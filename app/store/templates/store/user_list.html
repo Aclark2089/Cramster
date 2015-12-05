@@ -15,6 +15,9 @@
       <li>{{ current_user.email }}</li>
       <li>{{ current_user.storeuser.address }}</li>
       <li>Staff? {{ current_user.is_staff }}</li>
+      {% if user.is_staff %}
+      <li><a href="/accounts/edit/{{ current_user.id }}/">Edit</a></li>
+      {% endif %}
     </ul>
     {% endfor %}
   {% else %}
