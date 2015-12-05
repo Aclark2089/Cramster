@@ -4,7 +4,11 @@
 
 <div class="row center-divider">
   <div class="col-xs-4 col-xs-offset-4">
+  	{% if new %}
+    <h4 class="text-center text-primary">Create A User</h4>
+  	{% else %}
     <h4 class="text-center text-primary">Sign Up For An Account</h4>
+  	{% else %}
     <div class="panel panel-default">
       <div class="panel-body">
         <form action="/accounts/register/" method="post">
@@ -33,10 +37,18 @@
           <div class="checkbox text-center">
             <label>
                 {{ form.is_staff }}
+  			{% if new %}
+  			Staff Member?
+  			{% else %}
               Are You A Member Of Our Staff?
+    		{% endif %}
             </label>
           </div>
+  		{% if new %}
+          <button class="btn btn-primary btn-block" type="submit" value="Create">Create</button>
+  		{% else %}
           <button class="btn btn-primary btn-block" type="submit" value="Register">Register</button>
+  		{% endif %}
         </form>
       </div>
     </div>

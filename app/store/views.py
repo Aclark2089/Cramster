@@ -129,6 +129,21 @@ def product_catalog(request):
     products = Product.objects.all()
     return render(request, 'store/product_catalog.html', { "products": products })
 
+def add_product(request):
+	if request.method == 'POST':
+
+		form = NewProductForm(request.POST)
+
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect('/products/')
+
+	args = {}
+	args.update(csrf(request))
+
+	args['form'] = NewProductForm()
+	return render(request, 'store/product_add.html', args)	
+
 def edit_product(request, product_id="1"):
 	try:
 		product_id = int(product_id)
@@ -186,7 +201,6 @@ def orders(request):
 def orders_pay(request):
 	return render(request, 'store/orders_pay.html')
 
-
 def supplier_list(request):
     suppliers = Supplier.objects.all()
     return render(request, 'store/supplier_list.html', { "suppliers": suppliers })
@@ -218,3 +232,13 @@ def user_edit(request, user_id):
     args['user_id'] = user_id
 
     return render(request, 'store/user_edit.html', args)
+
+def user_new(request):
+	args = {}
+	args.update(csrf(request))
+
+	args['form'] = UserForm()
+	args['user_info'] = StoreUserForm()
+	args['new'] = True
+
+	return render(request, 'store/register.html', args)
