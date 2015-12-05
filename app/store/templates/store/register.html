@@ -8,7 +8,7 @@
     <h4 class="text-center text-primary">Create A User</h4>
   	{% else %}
     <h4 class="text-center text-primary">Sign Up For An Account</h4>
-  	{% else %}
+  	{% endif %}
     <div class="panel panel-default">
       <div class="panel-body">
         <form action="/accounts/register/" method="post">
@@ -38,7 +38,7 @@
             <label>
                 {{ form.is_staff }}
   			{% if new %}
-  			Staff Member?
+  		  Set As Staff Member
   			{% else %}
               Are You A Member Of Our Staff?
     		{% endif %}
