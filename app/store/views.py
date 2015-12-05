@@ -93,7 +93,7 @@ def settings(request):
 			form2.save()
 			return HttpResponseRedirect('/accounts/settings/')
 
-	current_user = get_object_or_404(User, id=user_id)
+	current_user = get_object_or_404(User, id=request.user.id)
 
 	args = {}
 	args.update(csrf(request))
