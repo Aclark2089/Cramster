@@ -1,10 +1,79 @@
-<b>Settings</b></br>
-<form action="/accounts/settings/" method="post">{% csrf_token %}
-{{ form }}
+{% extends "store/base.html" %}
 
-<input type="submit" value="Register" />
-</form>
+{% block content %}
+<div class="row">
+	<h2 class="text-center">Edit Settings</h2>
+</div>
+<div class="row">
+	<div class="col-xs-3 col-xs-offset-3">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Current Settings
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label for="registerEmail">User Email:</label>
+					<span class="pull-right">{{ user.email }}</span>
+				</div>
+				<div class="form-group">
+					<label for="registerAddress">New Address:</label>
+					<span class="pull-right">{{ user_info.address }}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+<div class="col-xs-4">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			Update Settings
+		</div>
+		<div class="panel-body">
+			<form action="/accounts/settings/" method="post">
+				{% csrf_token %}
+				<div class="form-group">
+					<label for="registerEmail">New Email:</label>
+					<span class="pull-right">{{ form.email }}</span>
+				</div>
+				<div class="form-group">
+					<label for="registerPassword1"> New Password:</label>
+					<span class="pull-right">{{ form.password1 }}</span>
+				</div>
+				<div class="form-group">
+					<label for="registerPassword2">Confirm Password:</label>
+					<span class="pull-right">{{ form.password2 }}</span>
+				</div>
+				<div class="form-group">
+					<label for="registerAddress">New Address:</label>
+					<span class="pull-right">{{ user_info.address }}</span>
+				</div>
+				<button class="btn btn-primary btn-block" type="submit" value="Update Your Settings" />
+				Update Settings
+			</button>
+		</form>
+	</div>
+</div>
+</div>
+</div>
 
-<form action="/accounts/delete/{{ user.id }}/" method="post">{% csrf_token %}
-	<input type="submit" value="Delete" />
-</form>
+<div class="row">
+	<div class="col-xs-4 col-xs-offset-4">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="text-danger text-center"><strong>Delete Account</strong></h4>
+			</div>
+			<div class="panel-body">
+				<p class="text-center">
+					Warning, this will completely delete your account from our system. You will not be able to log back in with this user!
+				</p>
+				<form action="/accounts/delete/{{ user.id }}/" method="post">
+					{% csrf_token %}
+					<button class="btn btn-danger btn-block" type="submit" value="Delete" />Yes, Delete My Account</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+
+
+{% endblock %}
