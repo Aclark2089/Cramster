@@ -106,7 +106,11 @@ def delete_user(request, user_id):
 
 	auth.logout(request)
 	user_to_delete = User.objects.get(pk=user_id)
+	storeuser_to_delete = user_to_delete.storeuser
+
 	user_to_delete.delete()
+	storeuser_to_delete.delete()
+	
 	return render(request, 'store/base.html')
 
 def product_catalog(request):
@@ -137,6 +141,17 @@ def edit_product(request, product_id="1"):
 	args['product'] = product
 	return render(request, 'store/product_edit.html', args)
 
+def delete_product(request, product_id):
+	try:
+		product_id = int(product_id)
+	except ValueError:
+		raise Http404()
+
+	if request.method == 'POST':
+		product = get_object_or_404(Product, pk=product_id)
+		product.delete()
+		return HttpResponseRedirect('/products/')
+
 def supplier_list(request):
     suppliers = Supplier.objects.all()
     return render(request, 'store/supplier_list.html', { "suppliers": suppliers })
@@ -145,26 +160,3 @@ def user_list(request):
 	users = User.objects.all()
 	return render(request, 'store/user_list.html', { "users": users })
 
-'''
-def staff(request):
-	return render(request, 'store/staff.html')
-
-def staff_users(request):
-	return render(request, 'store/staff_users.html')
-
-def edit_user(request, user_id):
-	try:
-		user_id = int(user_id)
-	except ValueError:
-		raise Http404()
-
-	selected_user = User.objects.get(pk=user_id)
-	selected_user.
-
-def staff_products(request):
-	return render(request, 'store/staff_products.html')
-
-def staff_orders(request):
-	return render(request, 'store/staff_orders.html')
-
-'''
