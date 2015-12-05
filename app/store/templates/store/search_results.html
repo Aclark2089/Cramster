@@ -23,9 +23,10 @@
 		</div>
 	</div>
 </div>
+<div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-default">
-			<table class="table results-table">
+			<table class="table table-bordered table-striped table-hover results-table">
 				<tr>
 					<th>
 						Title:
@@ -59,7 +60,7 @@
 					{% else %}
 					<td><span class="glyphicon glyphicon-remove"></span> </td>
 					{% endif %}
-					{% if user.is_active %}
+					{% if user.is_staff %}
 					<td>
 						<a class="btn btn-primary" href="/products/edit/{{ product.pk }}/">Edit</a>
 					</td>
@@ -68,6 +69,7 @@
 				{% endfor %}
 			</table>
 		</div>
+	</div>
 	</div>
 {% else %}
 	<div class="row">

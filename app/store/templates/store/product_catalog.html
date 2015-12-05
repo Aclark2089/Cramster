@@ -1,10 +1,15 @@
 {% extends "store/search_results.html" %}
 
 {% block search_header %}
-  {% if products|length > 0 %}
     <div class="row">
       <div class="col-xs-12">
         <h1 class="text-center">List of Our Products</h1>
+      </div>
+    </div>
+    {% if user.is_staff %}
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <a class="btn btn-primary" href="/products/add/">Staff- Create New Product</a>
       </div>
     </div>
     {% endif %}
