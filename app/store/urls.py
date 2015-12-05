@@ -9,6 +9,7 @@ urlpatterns = format_suffix_patterns([
 
     url(r'^products/$', views.product_catalog, name='product_catalog'),
     url(r'^products/edit/([0-9]+)/$', views.edit_product, name='edit_product'),
+    url(r'^products/delete/([0-9]+)/$', views.delete_product, name='delete_product'),
     url(r'^suppliers/', views.supplier_list, name='supplier_list'),
     url(r'^accounts/$', views.user_list, name='user_list'),
 
