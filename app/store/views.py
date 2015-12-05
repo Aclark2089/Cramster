@@ -83,7 +83,7 @@ def register_success(request):
 
 def settings(request):
 	current_user = User.objects.get(username=request.user.username)
-	
+
 	if request.method == 'POST':
 
 		form1 = UserForm(request.POST, instance=current_user)
@@ -92,7 +92,7 @@ def settings(request):
 		if form1.is_valid() * form2.is_valid():
 			form1.save()
 			form2.save()
-			return HttpResponseRedirect('/accounts/settings/')
+			return HttpResponseRedirect('/')
 
 	args = {}
 	args.update(csrf(request))
