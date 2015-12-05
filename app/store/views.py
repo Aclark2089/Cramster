@@ -153,7 +153,27 @@ def delete_product(request, product_id):
 		return HttpResponseRedirect('/products/')
 
 def orders(request):
+
+	if request.method == 'POST':
+
+		order = Order(user=user.storeuser, paid=False)
+		form = ProductForm(request.POST, instance=order)
+
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect('/orders/pay/')
+
+
+	args = {}
+	args.update(csrf(request))
+
+	args['form'] = OrderForm()
+	return render(request, 'store/product_edit.html', args)
 	return render(request, 'store/orders.html')
+
+def orders_pay(request):
+	return render(request, 'store/orders_pay.html')
+
 
 def supplier_list(request):
     suppliers = Supplier.objects.all()
