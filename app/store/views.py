@@ -193,6 +193,11 @@ def delete_product(request, product_id):
 
 def orders(request):
 
+	args = {}
+	args.update(csrf(request))
+
+	args['form'] = OrderForm()
+
 	if request.method == 'POST':
 
 		order = Order(user=request.user.storeuser, paid=False)
@@ -203,16 +208,52 @@ def orders(request):
 		if form.is_valid():
 			form.save()
 			order.save()
-			return render(request, 'store/orders_more.html', {'order_id':order.pk, 'form':OrderForm()})
+			args['order_id'] = order.pk
+			return render(request, 'store/orders_more.html', args)
+
+	return render(request, 'store/order_form.html', args)
+
+def orders_more(request, order_id="1"):
+	try:
+		order_id = int(order_id)
+	except ValueError:
+		raise Http404()
 
 	args = {}
 	args.update(csrf(request))
 
 	args['form'] = OrderForm()
+	args['order_id'] = order_id
+
+	current_order = Order.objects.get(pk=order_id)
+
+	if request.method == 'POST':
+
+		product_order = ProductOrder(order=current_order)
+
+		form = ProductForm(request.POST, instance=product_order)
+
+		if form.is_valid():
+			form.save()
+			current_order.save()
+			return render(request, 'store/orders_more.html', args)
+
 	return render(request, 'store/order_form.html', args)
 
-def orders_pay(request):
-	return render(request, 'store/orders_pay.html')
+def orders_checkout(request, order_id="1"):
+	try:
+		order_id = int(order_id)
+	except ValueError:
+		raise Http404()
+
+	current_order = Order.objects.get(pk=order_id)
+
+	price = 0
+
+	for product in current_order.products:
+		
+
+	return render(request, 'store/orders_checkout.html', { 'order': current_order })
 
 def supplier_list(request):
     suppliers = Supplier.objects.all()
