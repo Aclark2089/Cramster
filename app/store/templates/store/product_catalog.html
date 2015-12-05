@@ -22,4 +22,7 @@
     </div>
   </div>
   {% endif %}
+  {% if user.is_staff %}
+    <a class="btn btn-primary" href="/products/add/">Add Product</a>
+  {% endif %}
 {% endblock %}
