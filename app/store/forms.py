@@ -34,3 +34,8 @@ class ProductForm(ModelForm):
 	class Meta:
 		model = Product
 		fields = {'price', 'stock_quantity', 'description', 'active'}
+
+class NewProductForm(ModelForm):
+	class Meta:
+		model = Product
+		fields = {'product_name', 'price', 'supplier', 'stock_quantity', 'description', 'active'}

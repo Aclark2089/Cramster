@@ -13,7 +13,8 @@ from .forms import *
 def index(request):
     return render(request, 'store/base.html')
 
-def search(request):
+
+def search(request, filter=None):
 	if 'q' in request.GET and request.GET['q']:
 		q = request.GET['q']
 		products = Product.objects.all().filter(Q(product_name__icontains=q) | Q(description__icontains=q))
@@ -68,7 +69,7 @@ def register_user(request):
 			user = StoreUserForm(request.POST, instance=temp)
 
 			user.save()
-			return HttpResponseRedirect('/accounts/register_success/')
+			return render(request, 'store/login.html')
 
 	args = {}
 	args.update(csrf(request))
@@ -77,9 +78,6 @@ def register_user(request):
 	args['user_info'] = StoreUserForm()
 
 	return render(request, 'store/register.html', args)
-
-def register_success(request):
-	return render(request, 'store/register_success.html')
 
 def settings(request):
 	current_user = User.objects.get(username=request.user.username)
@@ -125,9 +123,29 @@ def delete_user(request, user_id):
 
 	return render(request, 'store/base.html')
 
-def product_catalog(request):
-    products = Product.objects.all()
+def product_catalog(request, filter=None):
+    if filter == 1:
+        products = Product.objects.all().order_by('price')
+    elif filter == 2:
+        products = Product.objects.all().order_by('product_name')
+    else:
+        products = Product.objects.all()
     return render(request, 'store/product_catalog.html', { "products": products })
+
+def add_product(request):
+	if request.method == 'POST':
+
+		form = NewProductForm(request.POST)
+
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect('/products/')
+
+	args = {}
+	args.update(csrf(request))
+
+	args['form'] = NewProductForm()
+	return render(request, 'store/product_add.html', args)
 
 def edit_product(request, product_id="1"):
 	try:
@@ -186,7 +204,6 @@ def orders(request):
 def orders_pay(request):
 	return render(request, 'store/orders_pay.html')
 
-
 def supplier_list(request):
     suppliers = Supplier.objects.all()
     return render(request, 'store/supplier_list.html', { "suppliers": suppliers })
@@ -218,3 +235,13 @@ def user_edit(request, user_id):
     args['user_id'] = user_id
 
     return render(request, 'store/user_edit.html', args)
+
+def user_new(request):
+	args = {}
+	args.update(csrf(request))
+
+	args['form'] = UserForm()
+	args['user_info'] = StoreUserForm()
+	args['new'] = True
+
+	return render(request, 'store/register.html', args)

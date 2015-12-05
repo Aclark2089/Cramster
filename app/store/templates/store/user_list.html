@@ -26,5 +26,8 @@
       <h1 class="text-center">No Users Available</h1>
     </div>
   </div>
+  {% endif %}      
+  {% if user.is_staff %}
+    <li><a href="/accounts/new/">Create New User</a></li>
   {% endif %}
 {% endblock %}
