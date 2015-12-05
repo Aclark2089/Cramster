@@ -263,6 +263,34 @@ def user_list(request):
 	users = User.objects.all()
 	return render(request, 'store/user_list.html', { "users": users })
 
+def order_list(request):
+	orders = Order.objects.all()
+	return render(request, 'store/order_list.html', { "orders": orders })
+
+def order_edit(request, order_id):
+	try:
+		order_id = int(order_id)
+	except ValueError:
+		raise Http404()
+
+	if request.method == 'POST':
+
+		current_order = Order.objects.get(pk=order_id)
+		form = OrderForm(request.POST, instance=current_order)
+
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect('/orders/')
+
+	order = get_object_or_404(Order, pk=order_id)
+
+	args = {}
+	args.update(csrf(request))
+
+	args['form'] = OrderForm(instance=order)
+	args['order'] = order
+	return render(request, 'store/order_edit.html', args)
+
 def user_edit(request, user_id):
     try:
         user_id = int(user_id)
