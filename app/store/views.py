@@ -92,7 +92,7 @@ def settings(request):
 		if form1.is_valid() * form2.is_valid():
 			form1.save()
 			form2.save()
-			return HttpResponseRedirect('/')
+			return HttpResponseRedirect('/accounts/login/')
 
 	args = {}
 	args.update(csrf(request))
