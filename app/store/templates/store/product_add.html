@@ -1,0 +1,17 @@
+{% extends "store/base.html" %}
+
+{% block content %}
+<div class="row">
+	<div class="col-xs-12">
+		<h1 class="text-center">
+		Create New Product
+		</h1>
+       
+		<form action="/products/add/" method="post">{% csrf_token %}
+ 		 {{ form }}
+ 		
+		<input type="submit" value="Create" />
+		</form>
+	</div>
+</div>
+{% endblock %}
