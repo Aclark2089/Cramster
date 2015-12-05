@@ -13,7 +13,6 @@ from .forms import *
 def index(request):
 
 	oversell = Product.objects.filter(stock_quantity__lte=10)
-
 	return render(request, 'store/base.html', {'oversell': oversell})
 
 

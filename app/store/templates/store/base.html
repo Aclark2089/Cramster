@@ -13,14 +13,14 @@
   <meta name="author" content="">
 
   <title>{{ store_title }}</title>
-    {% block style %}
-      {% block bootstrap %}
-      <!-- Bootstrap Core CSS -->
-      <link rel="stylesheet" type="text/css" href="{% static "bower_components/bootstrap/dist/css/bootstrap.min.css" %}"/>
-      <!-- Custom CSS -->
-      <link rel="stylesheet" type="text/css" href="{% static "css/shop-homepage.css" %}"/>
-      {% endblock %}
-    {% endblock %}
+  {% block style %}
+  {% block bootstrap %}
+  <!-- Bootstrap Core CSS -->
+  <link rel="stylesheet" type="text/css" href="{% static "bower_components/bootstrap/dist/css/bootstrap.min.css" %}"/>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" type="text/css" href="{% static "css/shop-homepage.css" %}"/>
+  {% endblock %}
+  {% endblock %}
   {% endblock %}
 </head>
 
@@ -44,28 +44,28 @@
         <ul class="nav navbar-nav navbar-right">
           {% if user.is_active %}
           <li>
-              <p class="navbar-text">Welcome, {{ user.username }}</p>
+            <p class="navbar-text">Welcome, {{ user.username }}</p>
           </li>
           {% if user.is_staff %}
           {% if oversell|length > 0 %}
           <li>
-              <a href="/oversell/">LOW PRODUCTS</a>
+            <a href="/oversell/">LOW PRODUCTS</a>
           </li>
           {% endif %}
           {% endif %}
           <li>
-              <a href="/accounts/settings/">Settings</a>
+            <a href="/accounts/settings/">Settings</a>
           </li>
           {% else %}
           <li>
             <a href="/accounts/register/">Sign Up</a>
           </li>
-            {% endif %}
+          {% endif %}
           <li>
             {% if user.is_active %}
-              <a href="/accounts/logout/" class="btn btn-primary">Logout</a>
+            <a href="/accounts/logout/" class="btn btn-primary">Logout</a>
             {% else %}
-              <a href="/accounts/login/" class="btn btn-primary">Login</a>
+            <a href="/accounts/login/" class="btn btn-primary">Login</a>
             {% endif %}
           </li>
         </ul>
@@ -85,24 +85,24 @@
     <div class="row">
 
       <div class="col-md-3 text-center">
-          <div class="row-fluid">
-            {% if empty_search %}
-              <p style="color: red;">Your search was empty!</p>
-            {% endif %}
-            <h4 class="lead">Search For Products</h4>
-            <form action="/search/" method="get">
-              <div class="form-group">
-                <div class="input-group">
-                  <input class="form-control" type="text" name="q" placeholder="Search for...">
-                  <span class="input-group-btn">
-                    <button class="btn btn-primary" type="submit" value="Search">Go</button>
-                  </span>
-                </div>
+        <div class="row-fluid">
+          {% if empty_search %}
+          <p style="color: red;">Your search was empty!</p>
+          {% endif %}
+          <h4 class="lead">Search For Products</h4>
+          <form action="/search/" method="get">
+            <div class="form-group">
+              <div class="input-group">
+                <input class="form-control" type="text" name="q" placeholder="Search for...">
+                <span class="input-group-btn">
+                  <button class="btn btn-primary" type="submit" value="Search">Go</button>
+                </span>
               </div>
-            </form>
-          </div>
-          <div class="row-fluid">
-            <h4 class="lead">Our Catalog</p>
+            </div>
+          </form>
+        </div>
+        <div class="row-fluid">
+          <h4 class="lead">Our Catalog</p>
             <div class="list-group">
               <a href="/products/" class="list-group-item">Products</a>
               <a href="/suppliers/" class="list-group-item">Suppliers</a>
@@ -111,148 +111,105 @@
             </div>
           </div>
           <div class="row-fluid">
-          {% if user.is_active %}
+            {% if user.is_active %}
             <a class="btn btn-primary" href="/orders/">Create New Order</a>
-          {% else %}
+            {% else %}
             <a class="btn btn-primary" href="/accounts/login/">Sign In To Order</a>
+            {% endif %}
+          </div>
+        </div>
+        <div class="col-md-9">
+          {% block catalog %}
+
+          <div class="row carousel-holder">
+
+            <div class="col-md-12">
+              <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                  <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                  <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                  <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                  <div class="item active">
+                    <img class="slide-image" src="{% static "img/CPhoto1.jpg" %}" alt="Cramster Bookstore Img 1">
+                  </div>
+                  <div class="item">
+                    <img class="slide-image" src="{% static "img/CPhoto2.jpg" %}" alt="Cramster Bookstore Img 2">
+                  </div>
+                  <div class="item">
+                    <img class="slide-image" src="{% static "img/CPhoto3.jpg" %}" alt="Cramster Bookstore Img 3">
+                  </div>
+                </div>
+                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                  <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                  <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+              </div>
+            </div>
+
+          </div>
+          {% if galleryproducts %}
+          <div class="row">
+            {% for product in galleryproducts %}
+            <div class="col-sm-4 col-lg-4 col-md-4">
+              <div class="thumbnail">
+                <img src="{% static "img/book1.jpg" %}" alt="">
+                <div class="caption">
+                  <h4><a class="" href="#">{{ product.product_name }}</a>
+                  </h4>
+                  <h4 class="">${{ product.price }}</h4>
+                  <p>{{ product.description }}</p>
+                </div>
+                <div class="ratings">
+                  <p class="pull-right">{% cycle '19' '7' '12' %} reviews</p>
+                  <p>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+
+          </div>
           {% endif %}
-          </div>
-        </div>
-      <div class="col-md-9">
-        {% block catalog %}
-
-        <div class="row carousel-holder">
-
-          <div class="col-md-12">
-            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-              <ol class="carousel-indicators">
-                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-              </ol>
-              <div class="carousel-inner">
-                <div class="item active">
-                  <img class="slide-image" src="{% static "img/CPhoto1.jpg" %}" alt="Cramster Bookstore Img 1">
-                </div>
-                <div class="item">
-                  <img class="slide-image" src="{% static "img/CPhoto2.jpg" %}" alt="Cramster Bookstore Img 2">
-                </div>
-                <div class="item">
-                  <img class="slide-image" src="{% static "img/CPhoto3.jpg" %}" alt="Cramster Bookstore Img 3">
-                </div>
-              </div>
-              <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-              </a>
-              <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right"></span>
-              </a>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="row">
-
-          <div class="col-sm-4 col-lg-4 col-md-4">
-            <div class="thumbnail">
-              <img src="{% static "img/book1.jpg" %}" alt="">
-              <div class="caption">
-                <h4 class="pull-right">$24.99</h4>
-                <h4><a href="#">First Product</a>
-                </h4>
-                <p>See more snippets like this online store item at <a target="_blank" href="http://www.bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
-              </div>
-              <div class="ratings">
-                <p class="pull-right">15 reviews</p>
-                <p>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-sm-4 col-lg-4 col-md-4">
-            <div class="thumbnail">
-              <img src="{% static "img/book2.jpg" %}" alt="">
-              <div class="caption">
-                <h4 class="pull-right">$64.99</h4>
-                <h4><a href="#">Second Product</a>
-                </h4>
-                <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              </div>
-              <div class="ratings">
-                <p class="pull-right">12 reviews</p>
-                <p>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-sm-4 col-lg-4 col-md-4">
-            <div class="thumbnail">
-              <img src="{% static "img/book3.jpg" %}" alt="">
-              <div class="caption">
-                <h4 class="pull-right">$74.99</h4>
-                <h4><a href="#">Third Product</a>
-                </h4>
-                <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              </div>
-              <div class="ratings">
-                <p class="pull-right">31 reviews</p>
-                <p>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                </p>
-              </div>
-            </div>
-          </div>
-
-
-        </div>
           {% endblock %}
-      </div>
-
-    </div>
-  {% endblock %}
-    <div class="push"></div>
-  </div>
-
-  <!-- /.Main Wrapper-->
-
-  <!-- Footer -->
-
-  <div class="container" id="footer">
-    <hr>
-
-    <footer>
-      <div class="row">
-        <div class="col-lg-12">
-          <p>Copyright &copy; {{ store_title }}, LLC 2015</p>
         </div>
+
       </div>
-    </footer>
-  </div>
+      {% endblock %}
+      <div class="push"></div>
+    </div>
 
-  <!-- /Footer -->
+    <!-- /.Main Wrapper-->
 
-  {% block script %}
-  <script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
-  <script src="{% static "bower_components/bootstrap/dist/js/bootstrap.min.js" %}"></script>
-  <script src="{% static "js/shop-homepage.js" %}"></script>
-  {% endblock %}
-</body>
+    <!-- Footer -->
 
-</html>
+    <div class="container" id="footer">
+      <hr>
+
+      <footer>
+        <div class="row">
+          <div class="col-lg-12">
+            <p>Copyright &copy; {{ store_title }}, LLC 2015</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- /Footer -->
+
+    {% block script %}
+    <script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
+    <script src="{% static "bower_components/bootstrap/dist/js/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/shop-homepage.js" %}"></script>
+    {% endblock %}
+  </body>
+
+  </html>
