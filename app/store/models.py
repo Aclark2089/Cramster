@@ -15,7 +15,7 @@ class StoreUser(models.Model):
 class Order(models.Model):
     order_date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(StoreUser, related_name='orders')
-    product = models.ForeignKey('Product', related_name='orders')
+    product = models.ManyToManyField('Product', related_name='orders')
     quantity = models.PositiveSmallIntegerField()
     paid = models.BooleanField()
     class Meta:

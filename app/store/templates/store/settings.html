@@ -8,16 +8,20 @@
 	<div class="col-xs-3 col-xs-offset-3">
 		<div class="panel panel-default">
 			<div class="panel-heading">
+				{% if error %}
+				Error: Invalid Form Submission
+				{% else %}
 				Current Settings
+				{% endif %}
 			</div>
 			<div class="panel-body">
 				<div class="form-group">
 					<label for="registerEmail">User Email:</label>
-					<span class="pull-right">{{ user.email }}</span>
+					<span class="pull-right">{{ current_user.email }}</span>
 				</div>
 				<div class="form-group">
 					<label for="registerAddress">New Address:</label>
-					<span class="pull-right">{{ user_info.address }}</span>
+					<span class="pull-right">{{ current_user.storeuser.address }}</span>
 				</div>
 			</div>
 		</div>
@@ -32,19 +36,19 @@
 				{% csrf_token %}
 				<div class="form-group">
 					<label for="registerEmail">New Email:</label>
-					<span class="pull-right">{{ form.email }}</span>
+					<span class="pull-right">{{ form1.email }}</span>
 				</div>
 				<div class="form-group">
 					<label for="registerPassword1"> New Password:</label>
-					<span class="pull-right">{{ form.password1 }}</span>
+					<span class="pull-right">{{ form1.password1 }}</span>
 				</div>
 				<div class="form-group">
 					<label for="registerPassword2">Confirm Password:</label>
-					<span class="pull-right">{{ form.password2 }}</span>
+					<span class="pull-right">{{ form1.password2 }}</span>
 				</div>
 				<div class="form-group">
 					<label for="registerAddress">New Address:</label>
-					<span class="pull-right">{{ user_info.address }}</span>
+					<span class="pull-right">{{ form2.address }}</span>
 				</div>
 				<button class="btn btn-primary btn-block" type="submit" value="Update Your Settings" />
 				Update Settings
@@ -72,8 +76,5 @@
 			</div>
 		</div>
 	</div>
-
-
-
 
 {% endblock %}
