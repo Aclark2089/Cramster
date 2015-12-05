@@ -12,7 +12,7 @@ from .forms import *
 
 def index(request):
 
-	oversell = Product.objects.filter(stock_quantity<10)
+	oversell = Product.objects.filter(stock_quantity__lte=10)
 
 	return render(request, 'store/base.html', {'oversell': oversell})
 
@@ -32,7 +32,7 @@ def search(request, filter=None):
 
 def oversell(request):
 
-	oversell = Product.objects.filter(stock_quantity<10)
+	oversell = Product.objects.filter(stock_quantity__lte=10)
 
 	return render(request, 'store/oversell.html', {'oversell': oversell})
 
