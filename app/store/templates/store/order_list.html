@@ -1,0 +1,33 @@
+{% extends "store/base.html" %}
+
+
+{% block catalog %}
+  {% if orders|length > 0 %}
+    <div class="row">
+
+      <div class="col-xs-12">
+        <h1 class="text-center">List of Our orders</h1>
+      </div>
+    </div>
+    {% for current_order in orders %}
+    <ul>
+      <li>{{ current_order.user.auth_user.username }}</li>
+      <li>{{ current_order.order_date }}</li>
+      <li>{{ current_order.paid }}</li>
+      <li>Staff? {{ current_order.user.auth_user.is_staff }}</li>
+      {% if user.is_staff %}
+      <li><a href="/orders/edit/{{ current_order.id }}/">Edit</a></li>
+      {% endif %}
+    </ul>
+    {% endfor %}
+  {% else %}
+  <div class="row">
+    <div class="col-xs-12">
+      <h1 class="text-center">No Orders Processed</h1>
+    </div>
+  </div>
+  {% endif %}
+  {% if user.is_staff %}
+    <li><a href="/accounts/new/">Create New Order</a></li>
+  {% endif %}
+{% endblock %}

@@ -221,6 +221,10 @@ def user_list(request):
 	users = User.objects.all()
 	return render(request, 'store/user_list.html', { "users": users })
 
+def order_list(request):
+	orders = Order.objects.all()
+	return render(request, 'store/order_list.html', { "orders": orders })
+
 def user_edit(request, user_id):
     try:
         user_id = int(user_id)
