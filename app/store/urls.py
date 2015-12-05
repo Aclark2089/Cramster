@@ -6,6 +6,7 @@ from .models import *
 urlpatterns = format_suffix_patterns([
     url(r'^$', views.index, name='index'),
     url(r'^search/$', views.search, name='search'),
+    url(r'^oversell/$', views.oversell, name='oversell'),
 
     url(r'^products/$', views.product_catalog, name='product_catalog'),
     url(r'^products/add/$', views.add_product, name='add_product'),

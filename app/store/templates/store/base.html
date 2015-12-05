@@ -45,7 +45,14 @@
           {% if user.is_active %}
           <li>
               <p class="navbar-text">Welcome, {{ user.username }}</p>
-
+          </li>
+          {% if user.is_staff %}
+          {% if oversell|length > 0 %}
+          <li>
+              <a href="/oversell/">LOW PRODUCTS</a>
+          </li>
+          {% endif %}
+          {% endif %}
           <li>
               <a href="/accounts/settings/">Settings</a>
           </li>

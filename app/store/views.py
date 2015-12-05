@@ -11,7 +11,10 @@ from .forms import *
 # Create your views here.
 
 def index(request):
-    return render(request, 'store/base.html')
+
+	oversell = Product.objects.filter(stock_quantity<10)
+
+	return render(request, 'store/base.html', {'oversell': oversell})
 
 def search(request):
 	if 'q' in request.GET and request.GET['q']:
@@ -25,6 +28,12 @@ def search(request):
 
 	else:
 		return render(request, 'store/base.html', {'empty_search': True})
+
+def oversell(request):
+
+	oversell = Product.objects.filter(stock_quantity<10)
+
+	return render(request, 'store/oversell.html', {'oversell': oversell})
 
 # Login Views
 def login(request):
