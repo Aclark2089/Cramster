@@ -116,7 +116,7 @@ def delete_user(request, user_id):
 
 	user_to_delete.delete()
 	storeuser_to_delete.delete()
-	
+
 	return render(request, 'store/base.html')
 
 def product_catalog(request):
@@ -190,27 +190,25 @@ def user_list(request):
 	return render(request, 'store/user_list.html', { "users": users })
 
 def user_edit(request, user_id):
-	try:
-		user_id = int(user_id)
-	except ValueError:
-		raise Http404()
+    try:
+        user_id = int(user_id)
+    except ValueError:
+        raise Http404()
 
-	if request.method == 'POST':
+    if request.method == 'POST':
+        auth_user = User.objects.get(id=user_id)
+        form1 = UserForm(request.POST, instance=auth_user)
+        form2 = StoreUserForm(request.POST, instance=auth_user.storeuser)
+        if form1.is_valid() * form2.is_valid():
+            form1.save()
+            form2.save()
+            return HttpResponseRedirect('/accounts/')
 
-		auth_user = User.objects.get(id=user_id)
-		form1 = UserForm(request.POST, instance=auth_user)
-		form2 = StoreUserForm(request.POST, instance=auth_user.storeuser)
+    current_user = get_object_or_404(User, id=user_id)
+    args = {}
+    args.update(csrf(request))
+    args['form1'] = UserForm(instance=current_user)
+    args['form2'] = StoreUserForm(instance=current_user.storeuser)
+    args['current_user'] = current_user
 
-		if form1.is_valid() * form2.is_valid():
-			form1.save()
-			form2.save()
-			return HttpResponseRedirect('/accounts/')
-
-	current_user = get_object_or_404(User, id=user_id)
-
-	args = {}
-	args.update(csrf(request))
-
-	args['form1'] = UserForm(instance=current_user)
-	args['form2'] = StoreUserForm(instance=current_user.storeuser)
-	return render(request, 'store/user_edit.html', args)
+    return render(request, 'store/user_edit.html', args)
