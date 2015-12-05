@@ -101,7 +101,7 @@ def settings(request):
 	args['form1'] = UserForm(instance=current_user)
 	args['form2'] = StoreUserForm(instance=current_user.storeuser)
 	args['current_user'] = current_user
-	return render(request, 'store/user_edit.html', args)
+	return render(request, 'store/settings.html', args)
 
 def delete_user(request, user_id):
 	try:
