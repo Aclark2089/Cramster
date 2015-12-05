@@ -39,6 +39,6 @@ class Supplier(models.Model):
         ordering = ['supplier_name']
 
 class ProductOrder(models.Model):
-    product = models.ForeignKey('Product', related_name='productorder')
-    order = models.ForeignKey('Order', related_name='productorder')
+    product = models.ForeignKey('Product', related_name='orders')
+    order = models.ForeignKey('Order', related_name='products')
     quantity = models.PositiveSmallIntegerField()
