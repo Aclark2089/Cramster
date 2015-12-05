@@ -152,6 +152,9 @@ def delete_product(request, product_id):
 		product.delete()
 		return HttpResponseRedirect('/products/')
 
+def orders(request):
+	return render(request, 'store/orders.html')
+
 def supplier_list(request):
     suppliers = Supplier.objects.all()
     return render(request, 'store/supplier_list.html', { "suppliers": suppliers })
