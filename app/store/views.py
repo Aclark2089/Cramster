@@ -6,6 +6,8 @@ from django.db.models import Q
 from django.contrib import auth
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .routes.serializers import *
+from .routes.viewsets import *
 from .models import *
 from .forms import *
 # Create your views here.
@@ -203,14 +205,13 @@ def orders(request):
 
 	args = {}
 	args.update(csrf(request))
-
-	args['form'] = OrderForm()
+	args['error'] = ""
+	args['ProductOrderForm'] = ProductOrderForm()
 
 	if request.method == 'POST':
 
 		order = Order(user=request.user.storeuser, paid=False)
 		product_order = ProductOrder(order=order)
-
 		form = ProductForm(request.POST, instance=product_order)
 
 		if form.is_valid():
@@ -218,6 +219,9 @@ def orders(request):
 			order.save()
 			args['order_id'] = order.pk
 			return render(request, 'store/orders_more.html', args)
+		else:
+			args['error'] = "Order Submission Failed!"
+			render(request, 'store/order_form.html', args)
 
 	return render(request, 'store/order_form.html', args)
 
