@@ -1,16 +1,47 @@
 {% extends "store/base.html" %}
 
 {% block catalog %}
-  <div class="row">
-    <div class="col-xs-12">
-      <h1 class="text-center">
-        Create New Order
-      </h1>
-		<form action="/order/" method="post">{% csrf_token %}
- 		 {{ form }}
- 		
-		<input type="submit" value="Make Order" />
-		</form>
+<div class="row">
+  <div class="col-xs-12">
+    <h1 class="text-center">
+      Create A New Order
+    </h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-3 col-xs-offset-3">
+    <div class="panel panel-default">
+      <div class="panel-heading text-center">
+        Order Information
+      </div>
+      <div class="panel-body text-center">
+        <ul class="list-group">
+          <li class="list-group-item">
+            Order User: <strong class="mark">{{ user.username }}</strong>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
+  <div class="col-xs-3">
+    <div class="panel panel-default">
+      <div class="panel-heading text-center">
+        Product Selection
+      </div>
+      <div class="panel-body">
+          {{ error }}
+        <form action="/orders/" method="post">
+          {% csrf_token %}
+          {{ ProductOrderForm }}
+          <input type="submit" value="Make Order" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% block checkout %}
+{% endblock %}
+
 {% endblock %}
