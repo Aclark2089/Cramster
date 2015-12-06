@@ -28,8 +28,6 @@ class Product(models.Model):
     stock_quantity = models.PositiveSmallIntegerField()
     description = models.CharField(max_length=200)
     active = models.BooleanField()
-    class Meta:
-        ordering = ['price']
 
 # Supplier Model
 # Attributes: supplierId, supplierName

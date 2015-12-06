@@ -4,9 +4,22 @@
 
 {% block search_header %}
 <div class="row">
-	<div class="col-md-12 text-center">
+	<div class="col-md-12 text-center margin-bottom">
 		<h3>You searched for: <mark><strong>{{ query }}</strong></mark></h3>
 	</div>
+</div>
+<div class="row">
+<div class="col-md-6 col-md-offset-3">
+	<form action="/search/" method="get">
+	<div class="btn-group" role="group" aria-label="Filters">
+			<input class="form-control hidden" type="text" name="q" value="{{ query }}">
+			<button class="btn btn-default" name="RS">Reset Filter</a>
+			<button class="btn btn-default" name="BN">By Name</a>
+			<button class="btn btn-default" name="MP">By Most Expensive</a>
+			<button class="btn btn-default" name="LP">By Least Expensive</a>
+	</div>
+</form>
+</div>
 </div>
 {% endblock %}
 
@@ -16,17 +29,11 @@
 	<div class="col-md-6">
 		<p class="lead">Found <mark>{{ products|length }}</mark> result{{ products|pluralize }}.</p>
 	</div>
-	<div class="col-md-3 col-md-offset-3">
-		<div class="btn-group" role="group" aria-label="By Price By Name">
-				<a class="btn btn-default" href="/products/1/">By Name</a>
-				<a class="btn btn-default" href="/products/2/">By Price</a>
-		</div>
-	</div>
 </div>
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-default">
-			<table class="table table-bordered table-striped table-hover results-table">
+			<table class="table table-bordered table-striped table-hover results-table text-center">
 				<tr>
 					<th>
 						Title:

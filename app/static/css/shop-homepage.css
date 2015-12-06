@@ -70,3 +70,11 @@ body {
 #footer, .push {
     height: 30px;
 }
+
+.margin-bottom {
+  margin-bottom: 10px;
+}
+
+.hidden {
+  display: none;
+}
