@@ -70,3 +70,7 @@ body {
 #footer, .push {
     height: 30px;
 }
+
+.staff-button {
+  margin-bottom: 10px;
+}

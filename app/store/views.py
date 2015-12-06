@@ -19,7 +19,11 @@ def index(request):
 def search(request, filter=None):
 	if 'q' in request.GET and request.GET['q']:
 		q = request.GET['q']
-		products = Product.objects.all().filter(Q(product_name__icontains=q) | Q(description__icontains=q))
+		products = Product.objects.filter(Q(product_name__icontains=q) | Q(description__icontains=q))
+		if filter == 1:
+			products = Product.objects.filter(Q(product_name__icontains=q) | Q(description__icontains=q)).order_by("price")
+		if filter == 2:
+			products = Product.objects.filter(Q(product_name__icontains=q) | Q(description__icontains=q)).order_by("product_name")
 		result = {
 			'products': products,
 			'query': q,
@@ -132,13 +136,15 @@ def delete_user(request, user_id):
 	return render(request, 'store/base.html')
 
 def product_catalog(request, filter=None):
-    if filter == 1:
-        products = Product.objects.all().order_by('price')
-    elif filter == 2:
-        products = Product.objects.all().order_by('product_name')
-    else:
-        products = Product.objects.all()
-    return render(request, 'store/product_catalog.html', { "products": products })
+	if filter == '1':
+		products = Product.objects.order_by('product_name')
+	elif filter == '2':
+		products = Product.objects.order_by('-price')
+	elif filter == '3':
+		products = Product.objects.order_by('price')
+	else:
+		products = Product.objects.all()
+	return render(request, 'store/product_catalog.html', { "products": products })
 
 def add_product(request):
 	if request.method == 'POST':
@@ -238,7 +244,7 @@ def orders_more(request, order_id="1"):
 			return render(request, 'store/orders_more.html', args)
 
 	return render(request, 'store/order_form.html', args)
-	
+
 
 def orders_checkout(request, order_id="1"):
 	try:
