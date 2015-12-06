@@ -1,16 +1,22 @@
 {% extends "store/base.html" %}
 
 {% block catalog %}
-  <div class="row">
-    <div class="col-xs-12">
-      <h1 class="text-center">
-        Create New Order
-      </h1>
-		<form action="/order/" method="post">{% csrf_token %}
- 		 {{ form }}
- 		
-		<input type="submit" value="Make Order" />
-		</form>
+<div class="row">
+  <div class="col-xs-12">
+    <h1 class="text-center">
+      Create New Order
+    </h1>
+    <div class="row">
+      <div class="col-xs-6 col-xs-offset-3">
+        <div class="panel panel-default">
+          <form action="/order/" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Make Order" />
+          </form>
+        </div>
+      </div>
     </div>
   </div>
+</div>
 {% endblock %}
