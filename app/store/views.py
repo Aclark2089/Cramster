@@ -19,11 +19,14 @@ def index(request):
 def search(request, filter=None):
 	if 'q' in request.GET and request.GET['q']:
 		q = request.GET['q']
-		products = Product.objects.filter(Q(product_name__icontains=q) | Q(description__icontains=q))
-		if filter == 1:
-			products = Product.objects.filter(Q(product_name__icontains=q) | Q(description__icontains=q)).order_by("price")
-		if filter == 2:
-			products = Product.objects.filter(Q(product_name__icontains=q) | Q(description__icontains=q)).order_by("product_name")
+		if 'BN' in request.GET:
+			products = Product.objects.order_by('product_name').filter(Q(product_name__icontains=q) | Q(description__icontains=q))
+		elif 'MP' in request.GET:
+			products = Product.objects.order_by('price').filter(Q(product_name__icontains=q) | Q(description__icontains=q))
+		elif 'LP' in request.GET:
+			products = Product.objects.order_by('-price').filter(Q(product_name__icontains=q) | Q(description__icontains=q))
+		else:
+			products = Product.objects.filter(Q(product_name__icontains=q) | Q(description__icontains=q))
 		result = {
 			'products': products,
 			'query': q,
