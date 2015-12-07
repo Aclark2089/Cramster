@@ -202,7 +202,6 @@ def delete_product(request, product_id):
 		return HttpResponseRedirect('/products/')
 
 def orders(request):
-
 	args = {}
 	args.update(csrf(request))
 	args['error'] = ""
