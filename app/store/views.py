@@ -133,10 +133,7 @@ def delete_user(request, user_id):
 		auth.logout(request)
 
 	user_to_delete = User.objects.get(pk=user_id)
-	storeuser_to_delete = user_to_delete.storeuser
-
 	user_to_delete.delete()
-	storeuser_to_delete.delete()
 
 	return render(request, 'store/base.html')
 
