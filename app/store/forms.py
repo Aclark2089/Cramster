@@ -7,11 +7,11 @@ from .models import *
 class UserForm(UserCreationForm):
 	username = forms.CharField()
 	email = forms.EmailField(required=True)
-	is_staff = forms.BooleanField()
+	is_staff = forms.BooleanField(required=False)
 
 	class Meta:
 		model = User
-		fields = {'username', 'email', 'password1', 'password2'}
+		fields = {'username', 'email', 'password1', 'password2', 'is_staff'}
 
 	def save(self, commit=True):
 		user = super(UserCreationForm, self).save(commit=False)
