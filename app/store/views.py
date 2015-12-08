@@ -73,10 +73,10 @@ def logout(request):
 def register_user(request):
 	if request.method == 'POST':
 		form = UserForm(request.POST)
-		address = StoreUserForm(request.POST)
+		store_form = StoreUserForm(request.POST)
 		username = request.POST.get('username', '')
 
-		if form.is_valid() * address.is_valid():
+		if form.is_valid() * store_form .is_valid():
 			form.save()
 
 			u = User.objects.get(username=username)
