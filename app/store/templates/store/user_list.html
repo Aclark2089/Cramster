@@ -48,7 +48,7 @@
           <td>{{ current_user.username }}</td>
           <td>{{ current_user.email }}</td>
           <td>{{ current_user.storeuser.address }}</td>
-          {% if current_user.auth_user.is_staff %}
+          {% if current_user.is_staff %}
           <td><span class="glyphicon glyphicon-ok"></span> </td>
           {% else %}
           <td><span class="glyphicon glyphicon-remove"></span> </td>
