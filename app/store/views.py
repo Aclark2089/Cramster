@@ -235,7 +235,7 @@ def orders_more(request, order_id="1"):
 	args = {}
 	args.update(csrf(request))
 
-	args['form'] = OrderForm()
+	args['form'] = ProductOrderForm()
 	args['order_id'] = order_id
 
 	current_order = Order.objects.get(pk=order_id)
@@ -243,15 +243,12 @@ def orders_more(request, order_id="1"):
 	if request.method == 'POST':
 
 		product_order = ProductOrder(order=current_order)
-
-		form = ProductForm(request.POST, instance=product_order)
-
+		form = ProductOrderForm(request.POST, instance=product_order)
 		if form.is_valid():
 			form.save()
-			current_order.save()
 			return render(request, 'store/orders_more.html', args)
 
-	return render(request, 'store/order_form.html', args)
+	return render(request, 'store/orders_more.html', args)
 
 
 def orders_checkout(request, order_id="1"):
@@ -259,16 +256,33 @@ def orders_checkout(request, order_id="1"):
 		order_id = int(order_id)
 	except ValueError:
 		raise Http404()
+	args={}
 
 	current_order = Order.objects.get(pk=order_id)
+	product_orders = ProductOrder.objects.filter(order=current_order)
 
+	args['current_order'] = current_order
+	args['order_id'] = order_id
 	price = 0
+	for product_order in product_orders:
+		price = price + ( product_order.quantity * product_order.product.price )
 
-	for product in current_order.products:
-		price = price + ( product.quantity * product.product.price )
+	args['price'] = price
 
+	if request.method == 'POST':
+		payment = request.POST.get('payment', '')
 
-	return render(request, 'store/orders_checkout.html', { 'order': current_order, 'price': price })
+		if price == int(payment):
+			current_order.paid = True
+			current_order.save()
+			args['pay_success'] = True
+			return render(request, 'store/orders_checkout.html', args)
+		else:
+			args['pay_fail'] = True
+			return render(request, 'store/orders_checkout.html', args)
+
+	return render(request, 'store/orders_checkout.html', args)
+
 
 def supplier_list(request):
     suppliers = Supplier.objects.all()
@@ -281,6 +295,10 @@ def user_list(request):
 def order_list(request):
 	orders = Order.objects.all()
 	return render(request, 'store/order_list.html', { "orders": orders })
+
+def open_orders(request):
+	open_orders = Order.objects.filter(user=request.user.storeuser, paid=False)
+	return render(request, 'store/open_orders.html', { "open_orders": open_orders })
 
 def order_edit(request, order_id):
 	try:

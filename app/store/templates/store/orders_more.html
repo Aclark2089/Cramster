@@ -8,16 +8,14 @@
       </h1>
 		<form action="/order/more/{{ order_id }}/" method="post">{% csrf_token %}
  		 {{ form }}
-
 		<input type="submit" value="Make Order" />
 		</form>
-      <h1 class="text-center">
-        Checkout
-      </h1>
-    <form action="/order/checkout/{{ order_id }}/" method="post">{% csrf_token %}
-
-    <input type="submit" value="Checkout" />
-    </form>
     </div>
   </div>
+    <div class="row">
+      <a class="btn btn-success" href="/orders/checkout/{{ order_id }}/">
+      <h1 class="text-center">
+        Checkout Your Order
+      </h1></a>
+    </div>
 {% endblock %}

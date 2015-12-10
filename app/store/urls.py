@@ -19,6 +19,7 @@ urlpatterns = format_suffix_patterns([
 
     # Orders URLs
     url(r'^orders/$', views.orders, name='orders'),
+    url(r'^orders/open/$', views.open_orders, name='open_orders'),
     url(r'^orders/more/([0-9]+)/$', views.orders_more, name='orders_more'),
     url(r'^orders/checkout/([0-9]+)/$', views.orders_checkout, name='orders_checkout'),
     url(r'^orders/list/$', views.order_list, name='orders_list'),
