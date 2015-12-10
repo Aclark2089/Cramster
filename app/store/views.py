@@ -13,9 +13,12 @@ from .forms import *
 # Create your views here.
 
 def index(request):
-
-	oversell = Product.objects.filter(stock_quantity__lte=10)
-	return render(request, 'store/base.html', {'oversell': oversell})
+	args={}
+	open_order = Order.objects.filter(user=request.user.storeuser, paid=False)
+	if open_order != False:
+		args['open_order'] = True
+	args['oversell'] = Product.objects.filter(stock_quantity__lte=10)
+	return render(request, 'store/base.html', args)
 
 
 def search(request, filter=None):
@@ -207,15 +210,16 @@ def orders(request):
 	if request.method == 'POST':
 
 		order = Order(user=request.user.storeuser, paid=False)
+		order.save()
 		product_order = ProductOrder(order=order)
-		form = ProductForm(request.POST, instance=product_order)
+		form = ProductOrderForm(request.POST, instance=product_order)
 
 		if form.is_valid():
 			form.save()
-			order.save()
 			args['order_id'] = order.pk
 			return render(request, 'store/orders_more.html', args)
 		else:
+			order.delete()
 			args['error'] = "Order Submission Failed!"
 			render(request, 'store/order_form.html', args)
 

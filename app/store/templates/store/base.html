@@ -43,9 +43,11 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
           {% if user.is_active %}
+          {% if open_order %}
           <li>
-            <p class="navbar-text">Welcome, {{ user.username }}</p>
+            <a href="/">You Have An Open Order Started!</a>
           </li>
+          {% endif %}
           {% if user.is_staff %}
           {% if oversell|length > 0 %}
           <li>
@@ -53,6 +55,9 @@
           </li>
           {% endif %}
           {% endif %}
+          <li>
+            <p class="navbar-text">Welcome, {{ user.username }}</p>
+          </li>
           <li>
             <a href="/accounts/settings/">Settings</a>
           </li>
