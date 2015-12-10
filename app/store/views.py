@@ -281,6 +281,10 @@ def order_list(request):
 	orders = Order.objects.all()
 	return render(request, 'store/order_list.html', { "orders": orders })
 
+def open_orders(request):
+	open_orders = Order.objects.filter(user=request.user.storeuser, paid=False)
+	return render(request, 'store/open_orders.html', { "open_orders": open_orders })	
+
 def order_edit(request, order_id):
 	try:
 		order_id = int(order_id)

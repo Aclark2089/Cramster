@@ -1,0 +1,15 @@
+{% extends "store/base.html" %}
+
+{% for order in open_orders %}
+
+	<b>Order #{{ forloop.counter }}</b>
+
+		<ul>
+		{% for product_order in order.products %}
+			<li>{{ product_order.product.product_name }} : {{ product_order.quantity }}</li>
+		{% endfor %}
+		</ul>
+	<a class="btn btn-primary" href="/orders/more/{{ order.pk }}/">Edit</a>
+
+	</br>
+{% endfor %}
