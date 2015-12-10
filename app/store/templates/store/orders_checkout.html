@@ -7,20 +7,21 @@
         Checkout
       </h1>
 
+    {% if pay_success %}
+      <h2>Thank you for your payment!</h2>
+    {% else %}
       The price of your order is {{ price }} dollars.
-		<form action="/order/more/{{ order_id }}/" method="post">{% csrf_token %}
- 		 <input type="text" 
- 		
-		<input type="submit" value="Pay" />
-		</form>
-      <h1 class="text-center">
-        Checkout
-      </h1>
-    <form action="/order/checkout/{{ order_id }}" method="post">{% csrf_token %}
-    
+    <form action="/orders/checkout/{{ order_id }}/" method="post">{% csrf_token %}
+    <input type="text" name="payment" placeholder="$"/>
     <input type="submit" value="Pay" />
     </form>
+    {% if pay_fail %}
+      <p>
+        That is not enough money
+      </p>
+    {% endif %}
     <a href="/" class="btn btn-danger">Cancel</a>
+    {% endif %}
     </div>
   </div>
 {% endblock %}
