@@ -14,9 +14,10 @@ from .forms import *
 
 def index(request):
 	args={}
-	open_order = Order.objects.filter(user=request.user.storeuser, paid=False)
-	if open_order != False:
-		args['open_order'] = True
+	if request.user.is_active:
+		open_order = Order.objects.filter(user=request.user.storeuser, paid=False)
+		if open_order != False:
+			args['open_order'] = True
 	args['oversell'] = Product.objects.filter(stock_quantity__lte=10)
 	return render(request, 'store/base.html', args)
 
@@ -27,9 +28,9 @@ def search(request, filter=None):
 		if 'BN' in request.GET:
 			products = Product.objects.order_by('product_name').filter(Q(product_name__icontains=q) | Q(description__icontains=q))
 		elif 'MP' in request.GET:
-			products = Product.objects.order_by('price').filter(Q(product_name__icontains=q) | Q(description__icontains=q))
-		elif 'LP' in request.GET:
 			products = Product.objects.order_by('-price').filter(Q(product_name__icontains=q) | Q(description__icontains=q))
+		elif 'LP' in request.GET:
+			products = Product.objects.order_by('price').filter(Q(product_name__icontains=q) | Q(description__icontains=q))
 		else:
 			products = Product.objects.filter(Q(product_name__icontains=q) | Q(description__icontains=q))
 		result = {

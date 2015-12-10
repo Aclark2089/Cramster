@@ -115,17 +115,32 @@
               <a href="/orders/list/" class="list-group-item">Orders</a>
             </div>
           </div>
+          {% if user.is_active %}
           <div class="row-fluid">
-            {% if user.is_active %}
+            <div class="col-xs-12">
               {% if open_order %}
-                <a class="btn btn-primary" href="/orders/">Start A New Order</a>
+                <a class="btn btn-primary margin-bottom" href="/orders/">Start A New Order</a>
               {% else %}
               <a class="btn btn-primary" href="/orders/">Start An Order</a>
               {% endif %}
-            {% else %}
-            <a class="btn btn-primary" href="/accounts/login/">Sign In To Order</a>
-            {% endif %}
+            </div>
           </div>
+
+            {% if open_order %}
+            <div class="row-fluid">
+                  <div class="col-xs-12">
+                        <a class="btn btn-success" href="/accounts/login/">Manage Your Orders</a>
+                  </div>
+            </div>
+            {% endif %}
+
+          {% else %}
+            <div class="row-fluid">
+              <div class="col-xs-12">
+              <a class="btn btn-primary" href="/accounts/login/">Sign In To Order</a>
+            </div>
+            </div>
+          {% endif %}
         </div>
         <div class="col-md-9">
           {% block catalog %}
