@@ -6,3 +6,4 @@ include/
 bower_components/
 .idea/
 prod_database.py
+*.log
