@@ -48,6 +48,7 @@ Clone the repository
 
 ```
 git clone git@github.com:Aclark2089/Cramster.git
+cd Cramster/
 ```
 
 You will need to make sure that your python has the correct modules installed
@@ -57,7 +58,6 @@ simply use your system wide python installation.
 
 ```
 pyvenv 3.5.0 Cramster_env
-cd Cramster/
 pip install -r requirements.txt
 ```
 
