@@ -111,9 +111,9 @@ TEMPLATES = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': '***REMOVED***',
-        'USER': '***REMOVED***',
-        'PASSWORD': ***REMOVED***,
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
@@ -170,7 +170,7 @@ try:
 except ImportError:
     pass
 
-# Importing existing production database if it exists    
+# Importing existing production database if it exists
 
 try:
         from .prod_database import PROD_DATABASE
