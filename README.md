@@ -110,5 +110,6 @@ __Areas That Could Be Updated__
 * Rewrite the views.py in store/ to be more readable and use class design instead of individual functions and checks for response type
 * Django Rest Framework is implemented, but not to as full of an extent as it could be. Rewrite project with Django Rest Framework in mind for more than just the /api endpoint
 * Figure out how Django uses session variables / context_processors to make a more consice and easy to manipulate 'cart' for adding multiple orders. This part of the project proved the most difficult simply because I did not find many docs on how this was implemented for Django
+* Get more in depth with the Wiki and the project's directory structure
 
 
