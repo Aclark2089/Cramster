@@ -14,12 +14,6 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 import os
 import sys
 
-try:
-    import pymysql
-    pymysql.install_as_MySQLdb()
-except ImportError:
-    pass
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 #######################################
@@ -33,8 +27,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '***REMOVED***'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
+
 DEBUG = True
-#APPEND_SLASH = False
+# APPEND_SLASH = False
 
 ALLOWED_HOSTS = []
 
@@ -116,27 +112,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': '***REMOVED***',
-        'USER': 'admin',
-        'PASSWORD': '***REMOVED***',
-        'HOST': '***REMOVED***',
-        'PORT': '3306',
-    }
-}
-
-WSGI_APPLICATION = 'app.wsgi.application'
-
-'''
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': '***REMOVED***',
         'USER': '***REMOVED***',
         'PASSWORD': ***REMOVED***,
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
 }
-'''
+
+WSGI_APPLICATION = 'app.wsgi.application'
 
 #######################################
 ####    STATIC & MEDIA FILES ##########
@@ -178,3 +161,19 @@ REST_FRAMEWORK = {
     ),
     'PAGE_SIZE': 10,
 }
+
+# Fix Django's MySQL issue by importing the pymysql plugin and using it in place of MySQLdb module for python3
+
+try:
+    import pymysql
+    pymysql.install_as_MySQLdb()
+except ImportError:
+    pass
+
+# Importing existing production database if it exists    
+
+try:
+        from .prod_database import PROD_DATABASE
+        DATABASES = PROD_DATABASE
+except ImportError:
+        pass
