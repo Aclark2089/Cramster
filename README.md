@@ -63,6 +63,7 @@ pip install -r requirements.txt
 
 Running this will install all the necessary modules that the python environment needs. After all of this is done, you will finally be ready to use the app after connecting it to a MySQL Database (or whichever backend you decide to run with).
 
+Also, don't forget to setup the static files. This can be done from the root of the project w/ `bower install`.
 
 ### Connecting to MySQL DB for Development
 
